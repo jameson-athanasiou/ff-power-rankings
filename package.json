@@ -1,0 +1,23 @@
+{
+    "name": "ff-power-rankings",
+    "version": "0.0.1",
+    "description": "",
+    "author": "",
+    "engines": {
+        "node": "7.9.0"
+    },
+    "scripts": {
+        "start": "nodemon server/server.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.17.2",
+        "chalk": "^2.0.1",
+        "express": "^4.15.3",
+        "mongodb-core": "~1.0"
+    },
+    "devDependencies": {
+        "eslint": "^4.1.0",
+        "minimist": "^1.2.0",
+        "nodemon": "^1.11.0"
+    }
+}
