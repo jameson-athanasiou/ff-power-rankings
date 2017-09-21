@@ -27,4 +27,13 @@ $('#sendGame').on('click', () => {
     });
 });
 
+$('#getGame').on('click', () => {
+    const queryParams = 'week=1';
+    fetch('/game?' + queryParams, {
+        method: 'get'
+    }).then(data => data.json()).then(data => {
+        console.info('done getting game');
+        console.info(data);
+    });
+});
 
