@@ -7,12 +7,14 @@
         "node": "7.9.0"
     },
     "scripts": {
-        "start": "nodemon server/server.js"
+        "start": "nodemon server/server.js",
+        "launch-mongo-express": "yarn ./node_modules/mongo-express/app.js"
     },
     "dependencies": {
         "body-parser": "^1.17.2",
         "chalk": "^2.0.1",
         "express": "^4.15.3",
+        "mongo-express": "^0.42.2",
         "mongodb": "^2.2.31",
         "mongodb-core": "~1.0"
     },

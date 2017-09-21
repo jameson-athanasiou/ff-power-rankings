@@ -1,6 +1,7 @@
 
 const bodyParser = require('body-parser');
 const constants = require('./constants');
+const gameServer = require('./gameServer');
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use('/', express.static(path.resolve('dist')));
+app.post('/game', gameServer.postGame);
 
 http.listen(port);
 console.log(`Server listening on port ${port}`);
