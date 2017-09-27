@@ -1,0 +1,26 @@
+{
+    "name": "ff-power-rankings",
+    "version": "0.0.1",
+    "description": "",
+    "author": "",
+    "engines": {
+        "node": "7.9.0"
+    },
+    "scripts": {
+        "start": "nodemon server/server.js",
+        "launch-mongo-express": "yarn ./node_modules/mongo-express/app.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.17.2",
+        "chalk": "^2.0.1",
+        "express": "^4.15.3",
+        "mongo-express": "^0.42.2",
+        "mongodb": "^2.2.31",
+        "mongodb-core": "~1.0"
+    },
+    "devDependencies": {
+        "eslint": "^4.1.0",
+        "minimist": "^1.2.0",
+        "nodemon": "^1.11.0"
+    }
+}
