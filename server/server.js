@@ -15,6 +15,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+
+
+
 app.use('/', express.static(path.resolve('dist')));
 app.get('/game', gameServer.getGame);
 app.post('/game', gameServer.postGame);
