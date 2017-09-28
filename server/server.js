@@ -4,6 +4,8 @@ const gameServer = require('./gameServer');
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
+const webpack = require('webpack');
+const webpackConfig = require('../webpack.config');
 
 const app = express();
 const http = require('http').Server(app);
@@ -16,8 +18,18 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+webpack.devTool = 'source-map';
+const compiler = webpack(webpackConfig);
+app.use(require('webpack-dev-middleware')(compiler, {
+    publicPath: webpackConfig.output.path,
+    noInfo: true,
+    reload: true,
+    stats: {
+        colors: true
+    }
+}));
 
-
+app.use(require('webpack-hot-middleware')(compiler));
 
 app.use('/', express.static(path.resolve('dist')));
 app.get('/game', gameServer.getGame);

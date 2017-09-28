@@ -2,7 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    devtool: 'inline-source-map',
     entry: {
         app: './src/main.js'
     },
@@ -27,9 +26,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-          title: 'Chat',
+          title: 'Power Rankings',
           template: './index.html'
         })
-    ],
-    watch: true
+    ]
 };
