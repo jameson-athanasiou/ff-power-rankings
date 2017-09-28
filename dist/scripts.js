@@ -6,8 +6,7 @@ $('#sendTeam').on('click', () => {
             owner: 'ZackSack'
         })
     }).then(data => data.json()).then(data => {
-        console.info('done posting team');
-        console.info(data);
+
     });
 });
 
@@ -22,8 +21,7 @@ $('#sendGame').on('click', () => {
             awayTeamScore: 150
         })
     }).then(data => data.json()).then(data => {
-        console.info('done posting team');
-        console.info(data);
+    
     });
 });
 
@@ -32,8 +30,7 @@ $('#getGame').on('click', () => {
     fetch('/game?' + queryParams, {
         method: 'get'
     }).then(data => data.json()).then(data => {
-        console.info('done getting game');
-        console.info(data);
+    
     });
 });
 

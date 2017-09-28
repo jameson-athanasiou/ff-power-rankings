@@ -1,4 +1,3 @@
-
 const bodyParser = require('body-parser');
 const constants = require('./constants');
 const gameServer = require('./gameServer');
@@ -31,7 +30,6 @@ console.log(`Server listening on port ${port}`);
             response.send({
                 message: 'team sent!'
             });
-            console.info('done!');
         });
 
         db.close();

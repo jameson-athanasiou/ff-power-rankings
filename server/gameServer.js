@@ -17,7 +17,6 @@ module.exports.postGame = function (request, response) {
                     response.send({
                         message: 'game sent!'
                     });
-                    console.info('done!');
                 }, (err) => {
                     response.send({
                         message: err

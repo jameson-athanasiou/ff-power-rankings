@@ -8,7 +8,9 @@
     },
     "scripts": {
         "start": "nodemon server/server.js",
-        "launch-mongo-express": "yarn ./node_modules/mongo-express/app.js"
+        "launch-mongo-express": "yarn ./node_modules/mongo-express/app.js",
+        "lint": "./node_modules/.bin/eslint server/*.js dist/*.js",
+        "pipeline": "yarn lint"
     },
     "dependencies": {
         "body-parser": "^1.17.2",
@@ -19,7 +21,7 @@
         "mongodb-core": "~1.0"
     },
     "devDependencies": {
-        "eslint": "^4.1.0",
+        "eslint": "^4.7.2",
         "minimist": "^1.2.0",
         "nodemon": "^1.11.0"
     }
