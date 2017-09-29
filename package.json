@@ -12,7 +12,7 @@
         "server": "nodemon --watch server server/server.js",
         "server-debug": "nodemon --debug --watch server server/server.js",
         "launch-mongo-express": "yarn ./node_modules/mongo-express/app.js",
-        "lint": "./node_modules/.bin/eslint server/*.js dist/*.js",
+        "lint": "./node_modules/.bin/eslint server/*.js src/*.js",
         "pipeline": "yarn lint && yarn webpack",
         "webpack": "webpack --config ./webpack.config.js"
     },
