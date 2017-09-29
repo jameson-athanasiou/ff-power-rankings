@@ -35,7 +35,7 @@ app.get('/game', gameServer.getGame);
 app.post('/game', gameServer.postGame);
 
 http.listen(port);
-console.log(`Server listening on port ${port}`);
+console.log(`Server listening on port ${port}`); // eslint-disable-line no-console
 
   app.post('/team', (request, response) => {
     MongoClient.connect(constants.DATABASE.CONNECTION_STRING, (err, db) => {

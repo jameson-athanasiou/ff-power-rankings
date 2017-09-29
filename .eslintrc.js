@@ -14,8 +14,6 @@ module.exports = {
         "comma-dangle": ["error", "never"],
         "no-alert": "error",
         "no-debugger": "error",
-        "no-console": "warn",
-        "require-jsdoc": "warn",
-        "valid-jsdoc": "warn"
+        "no-console": "warn"
     }
 };
