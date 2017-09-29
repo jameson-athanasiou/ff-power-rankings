@@ -21,7 +21,9 @@ module.exports = {
     },
     resolve: {
         alias: {
-            src: './src'
+            server: './server',
+            src: './src',
+            test: './test'
         }
     },
     plugins: [
