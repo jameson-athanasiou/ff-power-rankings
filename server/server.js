@@ -1,10 +1,11 @@
-
 const bodyParser = require('body-parser');
 const constants = require('./constants');
 const gameServer = require('./gameServer');
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
+const webpack = require('webpack');
+const webpackConfig = require('../webpack.config');
 
 const app = express();
 const http = require('http').Server(app);
@@ -16,12 +17,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use('/', express.static(path.resolve('dist')));
+
+webpack.devTool = 'source-map';
+const compiler = webpack(webpackConfig);
+app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    reload: true,
+    stats: {
+        colors: true
+    }
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+app.use('/', express.static(path.resolve('dist/index.html')));
 app.get('/game', gameServer.getGame);
 app.post('/game', gameServer.postGame);
 
 http.listen(port);
-console.log(`Server listening on port ${port}`);
+console.log(`Server listening on port ${port}`); // eslint-disable-line no-console
 
   app.post('/team', (request, response) => {
     MongoClient.connect(constants.DATABASE.CONNECTION_STRING, (err, db) => {
@@ -31,7 +45,6 @@ console.log(`Server listening on port ${port}`);
             response.send({
                 message: 'team sent!'
             });
-            console.info('done!');
         });
 
         db.close();
