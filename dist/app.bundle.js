@@ -72,11 +72,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__foo_js__ = __webpack_require__(1);
 
 
+console.info('test');
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
     console.log('winning');
-  console.log(__WEBPACK_IMPORTED_MODULE_0__foo_js__["a" /* default */]);
+    console.log(__WEBPACK_IMPORTED_MODULE_0__foo_js__["a" /* default */]);
 });
+
 
 /***/ }),
 /* 1 */

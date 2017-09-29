@@ -1,6 +1,5 @@
 import foo from './foo.js';
+import events from './events';
 
-export default function () {
-    console.log('winning');
-  console.log(foo);
-}
+console.info('test');
+events();

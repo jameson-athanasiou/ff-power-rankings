@@ -7,7 +7,10 @@
         "node": "7.9.0"
     },
     "scripts": {
-        "start": "yarn webpack && nodemon server/server.js",
+        "start": "yarn webpack && yarn server",
+        "start-debug": "yarn webpack && yarn server-debug",
+        "server": "nodemon --watch server server/server.js",
+        "server-debug": "nodemon --debug --watch server server/server.js",
         "launch-mongo-express": "yarn ./node_modules/mongo-express/app.js",
         "lint": "./node_modules/.bin/eslint server/*.js dist/*.js",
         "pipeline": "yarn lint",
@@ -18,6 +21,7 @@
         "chalk": "^2.0.1",
         "express": "^4.15.3",
         "html-webpack-plugin": "^2.30.1",
+        "jquery": "^3.2.1",
         "mongo-express": "^0.42.2",
         "mongodb": "^2.2.31",
         "mongodb-core": "~1.0",

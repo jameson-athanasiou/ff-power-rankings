@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({
 webpack.devTool = 'source-map';
 const compiler = webpack(webpackConfig);
 app.use(require('webpack-dev-middleware')(compiler, {
-    publicPath: webpackConfig.output.path,
     noInfo: true,
     reload: true,
     stats: {
@@ -31,7 +30,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.use('/', express.static(path.resolve('dist')));
+app.use('/', express.static(path.resolve('dist/index.html')));
 app.get('/game', gameServer.getGame);
 app.post('/game', gameServer.postGame);
 
