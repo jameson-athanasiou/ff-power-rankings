@@ -1,9 +1,11 @@
 const path = require('path');
+const paths = require('./paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    devtool: 'source-map',
     entry: {
-        app: './src/main.js'
+        app: paths.src + '/index.js'
     },
     module: {
         loaders: [{
@@ -11,7 +13,7 @@ module.exports = {
             exclude: /node_modules/,
             loader: 'babel-loader',
             include: [
-                './src'
+                paths.src
             ],
         }]
     },
@@ -22,8 +24,8 @@ module.exports = {
     resolve: {
         alias: {
             server: './server',
-            src: './src',
-            test: './test'
+            src: paths.src,
+            test: paths.clientTest
         }
     },
     plugins: [

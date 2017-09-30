@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-webpack.devTool = 'source-map';
+//webpack.devtool = 'source-map';
 const compiler = webpack(webpackConfig);
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
