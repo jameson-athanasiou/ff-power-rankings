@@ -2,7 +2,7 @@ import Button from 'src/components/formComponents/Button';
 import React from 'react';
 import LabelTextBox from 'src/components/formComponents/LabelTextBox';
 
-export default class GameForm extends React.Component {
+export default class RosPowerRank extends React.Component {
 
     constructor(props) {
         super(props);
@@ -11,10 +11,8 @@ export default class GameForm extends React.Component {
     render() {
         return  <div className='game-form'>
                     <LabelTextBox id='weekNumber' labelText='Week Number' />
-                    <LabelTextBox id='homeTeam' labelText='Home Team' />
-                    <LabelTextBox id='homeTeamScore' labelText='Home Team Score' />
-                    <LabelTextBox id='awayTeam' labelText='Away Team' />
-                    <LabelTextBox id='awayTeamScore' labelText='Away Team Score' />
+                    <LabelTextBox id='teamName' labelText='Team' />
+                    <LabelTextBox id='RosPowerRank' labelText='Rest of Season Power Rank' />
                     <Button text='submit' />
                 </div>
     }

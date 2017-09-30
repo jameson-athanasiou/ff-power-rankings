@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import GameForm from 'src/components/forms/GameForm';
 
 export default class Header extends React.Component {
 
@@ -14,6 +13,7 @@ export default class Header extends React.Component {
                         <ul>
                             <li><Link to='/'>Home</Link></li>
                             <li><Link to='/gameform'>Input Game</Link></li>
+                            <li><Link to='/RosPowerRankForm'>Input Other Stats</Link></li>
                         </ul>
                     </nav>
                 </header>
