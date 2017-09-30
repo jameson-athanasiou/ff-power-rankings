@@ -1,9 +1,9 @@
 const path = require('path');
-const paths = require('./paths');
+const paths = require('./config/paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     entry: {
         app: paths.src + '/index.js'
     },
@@ -15,6 +15,12 @@ module.exports = {
             include: [
                 paths.src
             ],
+        }, {
+            test: /\.json$/,
+            loader: 'json-loader',
+            include: [
+                paths.src
+            ],
         }]
     },
     output: {
@@ -23,6 +29,7 @@ module.exports = {
     },
     resolve: {
         alias: {
+            json: paths.json,
             server: './server',
             src: paths.src,
             test: paths.clientTest

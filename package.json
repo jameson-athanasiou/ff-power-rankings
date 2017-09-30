@@ -24,6 +24,7 @@
         "express": "^4.15.3",
         "html-webpack-plugin": "^2.30.1",
         "jquery": "^3.2.1",
+        "json-loader": "^0.5.7",
         "mongo-express": "^0.42.2",
         "mongodb": "^2.2.31",
         "mongodb-core": "~1.0",

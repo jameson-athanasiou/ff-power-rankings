@@ -1,5 +1,5 @@
 const path = require('path');
-const paths = require('./paths');
+const paths = require('./config/paths');
 const webpackConfig = require('./webpack.config');
 
 module.exports = function (config) {
@@ -38,6 +38,7 @@ module.exports = function (config) {
       },
       resolve: {
         alias: {
+          json: paths.json,
           src: paths.src,
           test: paths.clientTest
         }

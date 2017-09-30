@@ -13,7 +13,7 @@ export default class Header extends React.Component {
                         <ul>
                             <li><Link to='/'>Home</Link></li>
                             <li><Link to='/gameform'>Input Game</Link></li>
-                            <li><Link to='/RosPowerRankForm'>Input Other Stats</Link></li>
+                            <li><Link to='/RosPowerRankForm'>Input Power Rankings</Link></li>
                         </ul>
                     </nav>
                 </header>
