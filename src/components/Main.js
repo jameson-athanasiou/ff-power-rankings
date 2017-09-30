@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from 'src/components/Home';
 import GameForm from 'src/components/forms/GameForm';
+import ScoreInputForm from 'src/components/forms/ScoreInputForm';
 import RosPowerRankForm from 'src/components/forms/RosPowerRankForm';
 
 export default class Main extends React.Component {
@@ -16,6 +17,7 @@ export default class Main extends React.Component {
                     <Switch>
                         <Route exact path='/' component={Home}/>
                         <Route path='/GameForm' component={GameForm}/>
+                        <Route path='/ScoreInputForm' component={ScoreInputForm}/>
                         <Route path='/RosPowerRankForm' component={RosPowerRankForm}/>
                     </Switch>
                 </main>;

@@ -1,0 +1,38 @@
+{
+    "week1": {
+        "matchups": [{
+            "homeTeam": "Jared",
+            "awayTeam": "Jameson"
+        }, {
+            "homeTeam": "Ian",
+            "awayTeam": "Bryt"
+        }, {
+            "homeTeam": "Steve",
+            "awayTeam": "Curt"
+        }, {
+            "homeTeam": "Jimmy",
+            "awayTeam": "Zack"
+        }, {
+            "homeTeam": "Tim",
+            "awayTeam": "Matt"
+        }]
+    },
+    "week2": {
+        "matchups": [{
+            "homeTeam": "Ian",
+            "awayTeam": "Jared"
+        }, {
+            "homeTeam": "Jameson",
+            "awayTeam": "Steve"
+        }, {
+            "homeTeam": "Bryt",
+            "awayTeam": "Jimmy"
+        }, {
+            "homeTeam": "Curt",
+            "awayTeam": "Tim"
+        }, {
+            "homeTeam": "Zack",
+            "awayTeam": "Matt"
+        }]
+    }
+}
