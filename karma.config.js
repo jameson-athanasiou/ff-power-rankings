@@ -5,7 +5,7 @@ const webpackConfig = require('./webpack.config');
 module.exports = function (config) {
   config.set({
     frameworks: ['mocha', 'chai'],
-    files: [paths.clientTest + '/*.test.js'],
+    files: [paths.clientTest + '/**/*.test.js'],
     reporters: ['mocha'],
     port: 9876,  // karma web server port
     colors: true,
@@ -16,7 +16,7 @@ module.exports = function (config) {
     concurrency: Infinity,
     preprocessors: {
       // add webpack as preprocessor
-      './test/unit/src/*.test.js': ['webpack']
+      './test/unit/src/**/*.test.js': ['webpack']
     },
 
     webpack: { //kind of a copy of your webpack config
@@ -30,6 +30,9 @@ module.exports = function (config) {
               paths.src,
               paths.clientTest
           ],
+          query: {
+            presets: ['enzyme'],
+          },
         }]
       },
       externals: {

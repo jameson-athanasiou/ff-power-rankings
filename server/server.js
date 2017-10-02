@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const constants = require('./constants');
 const gameServer = require('./gameServer');
+const powerRankingsServer = require('./powerRankingsServer');
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
@@ -33,6 +34,8 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.use('/', express.static(path.resolve('dist/index.html')));
 app.get('/game', gameServer.getGame);
 app.post('/game', gameServer.postGame);
+
+app.post('/powerRankings', powerRankingsServer.postPowerRankings);
 
 http.listen(port);
 console.log(`Server listening on port ${port}`); // eslint-disable-line no-console

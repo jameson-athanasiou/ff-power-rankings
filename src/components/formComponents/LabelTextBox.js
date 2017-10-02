@@ -9,7 +9,7 @@ export default class LabelTextBox extends React.Component {
     render() {
         return  <div>
                     <label htmlFor={this.props.id}>{this.props.labelText}</label>
-                    <input type="textbox" id={this.props.id}></input>
+                    <input type="textbox" id={this.props.id} onChange={this.props.onChange}></input>
                 </div>
     }
 }
