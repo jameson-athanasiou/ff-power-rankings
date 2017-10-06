@@ -1,10 +1,12 @@
 const constants = require('./constants');
 const MongoClient = require('mongodb').MongoClient;
+const mockDb = require('./mockDB');
 
 module.exports.postPowerRankings = function (request, response) {
     request.on('data', data => {
         const payload = JSON.parse(data.toString());
         if (payload) {
+            mockDb.storePowerRankings(payload);
             response.status(200).end();
         } else {
             response.status(500).end();

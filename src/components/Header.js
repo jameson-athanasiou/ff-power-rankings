@@ -16,6 +16,9 @@ export default class Header extends React.Component {
                             <li><Link to='/ScoreInputForm'>Input Scores</Link></li>
                             <li><Link to='/RosPowerRankForm'>Input Power Rankings</Link></li>
                         </ul>
+                        <ul>
+                            <li><Link to='/PowerRankingsOutput'>Power Rankings Chart</Link></li>
+                        </ul>
                     </nav>
                 </header>
     }

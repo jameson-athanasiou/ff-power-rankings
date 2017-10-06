@@ -8,20 +8,19 @@ export default class RosPowerRank extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {};
     }
 
-    _onChange(owner, e) {
+    _onChange(param, e) {
+        const postData = this.state.postData;
         this.setState({
-            postData: {
-                [owner]: e.target.value
-            }
+            [param]: e.target.value
         });
     }
 
     _onSubmit() {
-        const postData = this.state.postData;
-        if (this._validatePost(postData)) {
-            powerRankingsRequestor.post(this.state.postData);
+        if (this._validatePost(this.state)) {
+            powerRankingsRequestor.post(this.state);
         } else {
             //throw err
         }
@@ -39,7 +38,7 @@ export default class RosPowerRank extends React.Component {
 
     render() {
         return  <div className='game-form'>
-                    <LabelTextBox id='weekNumber' labelText='Week Number' />
+            <LabelTextBox id='weekNumber' labelText='Week Number' onChange={this._onChange.bind(this, 'week')} />
                     {this._mapTeams()}
                     <Button text='Submit' onClick={this._onSubmit.bind(this)}/>
                 </div>
