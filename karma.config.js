@@ -29,10 +29,7 @@ module.exports = function (config) {
           include: [
               paths.src,
               paths.clientTest
-          ],
-          query: {
-            presets: ['enzyme'],
-          },
+          ]
         }]
       },
       externals: {

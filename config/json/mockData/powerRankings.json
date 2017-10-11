@@ -1,0 +1,16 @@
+[{
+    "week": 1,
+    "Jared": 1,
+    "Jameson": 2,
+    "Ian": 3
+}, {
+    "week": 2,
+    "Jared": 1,
+    "Jameson": 3,
+    "Ian": 2
+},  {
+    "week": 3,
+    "Jared": 2,
+    "Jameson": 3,
+    "Ian": 1
+}]
