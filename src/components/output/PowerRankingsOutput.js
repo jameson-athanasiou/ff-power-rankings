@@ -1,6 +1,7 @@
 import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries } from 'react-vis';
 import React from 'react';
 import powerRankingsData from 'json/mockData/powerRankings';
+import 'style-loader!../../../node_modules/react-vis/dist/style.css';
 
 export default class PowerRankingsOutput extends React.Component {
     constructor(props) {
@@ -9,20 +10,21 @@ export default class PowerRankingsOutput extends React.Component {
         this._formatDataForGraph(powerRankingsData);
     }
 
-    _formatDataForGraph(data) {
-        const owners = Object.keys(data[0]).filter(owner => owner !== 'week').map(owner => owner);
-        debugger;
+    _formatDataForGraph() {
+        const owners = Object.keys(powerRankingsData[0]).filter(owner => owner !== 'week').map(owner => owner);
         const powerRankingsObject = {};
         owners.forEach(owner => {
             powerRankingsObject[owner] = [];
         });
-        data.forEach(weekObject => {
+        powerRankingsData.forEach(weekObject => {
             Object.keys(weekObject).forEach(owner => {
                 owner !== 'week' && powerRankingsObject[owner].push({x: weekObject.week, y: weekObject[owner]});
             });
         });
-        //return data.map
 
+        return Object.keys(powerRankingsObject).map(series => {
+            return <LineSeries data={powerRankingsObject[series]} />
+        });
     }
 
     _generateLineSeries() {
@@ -30,12 +32,10 @@ export default class PowerRankingsOutput extends React.Component {
     }
 
     render() {
-        //return <LineChart data1={[{x: 1, y: 10}, {x: 2, y: 5}, {x: 3, y: 15}]} data2={[{x: 1, y: 4}, {x: 2, y: 7}, {x: 3, y: 15}]} />
         return <XYPlot width={300} height={300}>
-                    //{this._generateLineSeries.bind(this)};
-                    <LineSeries data={[{x: 1, y: 10}, {x: 2, y: 5}, {x: 3, y: 15}]} />
-                    <XAxis />
-                    <YAxis />
+                    {this._formatDataForGraph()}
+                    <XAxis title="Week"/>
+                    <YAxis title="Rank"/>
                 </XYPlot>
     }
 };
