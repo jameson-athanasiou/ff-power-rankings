@@ -6,7 +6,6 @@ import 'style-loader!../../../node_modules/react-vis/dist/style.css';
 export default class PowerRankingsOutput extends React.Component {
     constructor(props) {
         super(props);
-        console.info(powerRankingsData);
         this._formatDataForGraph(powerRankingsData);
     }
 
@@ -22,8 +21,8 @@ export default class PowerRankingsOutput extends React.Component {
             });
         });
 
-        return Object.keys(powerRankingsObject).map(series => {
-            return <LineSeries data={powerRankingsObject[series]} />
+        return Object.keys(powerRankingsObject).map((series, i) => {
+            return <LineSeries key={i} data={powerRankingsObject[series]} />
         });
     }
 
