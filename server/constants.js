@@ -5,5 +5,12 @@ module.exports = {
             GAMES: 'Games',
             TEAMS: 'Teams'
         }
+    },
+    ESPN: {
+        LEAGUE_ID: '211640',
+        SEASON_ID: '2017',
+        URL: {
+            STANDINGS: 'http://games.espn.com/ffl/standings'
+        }
     }
 };

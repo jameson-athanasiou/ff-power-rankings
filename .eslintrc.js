@@ -14,6 +14,7 @@ module.exports = {
         "comma-dangle": ["error", "never"],
         "no-alert": "error",
         "no-debugger": "error",
-        "no-console": "warn"
+        "no-console": "warn",
+        "semi": "error"
     }
 };

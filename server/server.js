@@ -7,6 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
+const dataAccess = require('./dataAccess');
 
 const app = express();
 const http = require('http').Server(app);
@@ -34,7 +35,9 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.use('/', express.static(path.resolve('dist/index.html')));
 app.get('/game', gameServer.getGame);
 app.post('/game', gameServer.postGame);
-
+app.get('/team', (req, res) => {
+    dataAccess.getStandings();
+});
 app.post('/powerRankings', powerRankingsServer.postPowerRankings);
 
 http.listen(port);
