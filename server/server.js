@@ -36,7 +36,7 @@ app.use('/', express.static(path.resolve('dist/index.html')));
 app.get('/game', gameServer.getGame);
 app.post('/game', gameServer.postGame);
 app.get('/team', (req, res) => {
-    dataAccess.getStandings();
+    dataAccess.getSeasonTeamStats();
 });
 app.post('/powerRankings', powerRankingsServer.postPowerRankings);
 

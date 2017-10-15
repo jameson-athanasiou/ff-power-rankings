@@ -23,10 +23,29 @@ module.exports = {
         return new Promise((resolve, reject) => {
             JSDOM.fromURL(url).then(dom => {
                 const document = dom.window.document;
-                let standingsTable = document.querySelectorAll('.tableBody')[0];
+                let standingsTable = document.querySelectorAll('table.tableBody')[0];
                 standingsTable.deleteRow(0);
                 standingsTable = '<table>' + standingsTable.innerHTML + '</table';
                 const sortedTable = this._sortTable(standingsTable);
+
+                resolve(sortedTable);
+            }, reject);
+        });
+    },
+
+    getSeasonTeamStats() {
+        const url = `${constants.ESPN.URL.STANDINGS}?leagueId=${constants.ESPN.LEAGUE_ID}&seasonId=${constants.ESPN.SEASON_ID}`;
+
+        return new Promise((resolve, reject) => {
+            JSDOM.fromURL(url).then(dom => {
+                const document = dom.window.document;
+                debugger;
+                let standingsTable = document.querySelectorAll('table.tableBody')[1];
+                standingsTable.deleteRow(0);
+                standingsTable = '<table>' + standingsTable.innerHTML + '</table';
+                const sortedTable = this._sortTable(standingsTable);
+
+
 
                 resolve(sortedTable);
             }, reject);
