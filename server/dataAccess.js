@@ -25,7 +25,7 @@ module.exports = {
                 const document = dom.window.document;
                 let standingsTable = document.querySelectorAll('table.tableBody')[0];
                 standingsTable.deleteRow(0);
-                standingsTable = '<table>' + standingsTable.innerHTML + '</table';
+                standingsTable = '<table>' + standingsTable.innerHTML + '</table>';
                 const sortedTable = this._sortTable(standingsTable);
 
                 resolve(sortedTable);
@@ -42,10 +42,8 @@ module.exports = {
                 debugger;
                 let standingsTable = document.querySelectorAll('table.tableBody')[1];
                 standingsTable.deleteRow(0);
-                standingsTable = '<table>' + standingsTable.innerHTML + '</table';
+                standingsTable = '<table>' + standingsTable.innerHTML + '</table>';
                 const sortedTable = this._sortTable(standingsTable);
-
-
 
                 resolve(sortedTable);
             }, reject);
