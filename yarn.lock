@@ -2283,20 +2283,9 @@ eslint@^4.7.2:
     table "^4.0.1"
     text-table "~0.2.0"
 
-"espn-fantasy-football-data@git+https://github.com/jameson693/espn-fantasy-football-data":
-  version "0.0.1"
-  resolved "git+https://github.com/jameson693/espn-fantasy-football-data#624644092c73af1d5de6ee5250c45029fd7fee0d"
-  dependencies:
-    body-parser "^1.17.2"
-    chalk "^2.0.1"
-    cheerio "^1.0.0-rc.2"
-    express "^4.15.3"
-    jsdom "^11.3.0"
-    request "^2.83.0"
-
 "espn-fantasy-football-data@https://github.com/jameson693/espn-fantasy-football-data":
   version "0.0.1"
-  resolved "https://github.com/jameson693/espn-fantasy-football-data#a771c0b4660413ca485feeacac076b8a0291b522"
+  resolved "https://github.com/jameson693/espn-fantasy-football-data#d036568ff74f22bcd6718fdf9544b8d2d7f381a5"
   dependencies:
     body-parser "^1.17.2"
     chalk "^2.0.1"

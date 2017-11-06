@@ -1,6 +1,12 @@
 const constants = require('./constants');
 const MongoClient = require('mongodb').MongoClient;
 
+module.exports.organizeSeasonData = function (standings, stats) {
+
+
+
+};
+
 module.exports.getTeams = function (request, response) {
     if (week) {
         MongoClient.connect(constants.DATABASE.CONNECTION_STRING, (err, db) => {
