@@ -8,8 +8,13 @@ export default class GameForm extends React.Component {
         super(props);
     }
 
+    _onClick() {
+        fetch('/team');
+    }
+
     render() {
         return  <div className='game-form'>
+        <button onClick={this._onClick}> get espn data </button>
                     <LabelTextBox id='weekNumber' labelText='Week Number' />
                     <LabelTextBox id='homeTeam' labelText='Home Team' />
                     <LabelTextBox id='homeTeamScore' labelText='Home Team Score' />
