@@ -4,7 +4,7 @@
     "description": "",
     "author": "",
     "engines": {
-        "node": "8.7.0"
+        "node": ">=8.7.0"
     },
     "scripts": {
         "start": "yarn webpack && yarn server",

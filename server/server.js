@@ -3,11 +3,13 @@ const constants = require('./constants');
 const gameServer = require('./gameServer');
 const powerRankingsServer = require('./powerRankingsServer');
 const express = require('express');
+const espnAccessor = require('./espnAccessor');
 const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
 const espnData = require('espn-fantasy-football-data');
+const powerRankingsOrchestrator = require('./powerRankingsOrchestrator');
 const mongo_express = require('mongo-express/lib/middleware');
 const mogno_express_config = require('../config/mongoExpress.config.js');
 
@@ -65,6 +67,17 @@ app.get('/scoreboard', async (req, res) => {
 app.get('/stats', async (req, res) => {
     let status = 200;
     const data = await espnData.getStats();
+    if (data) {
+        res.status(status).send(data);
+    } else {
+        res.status(status).send({});
+    }
+});
+
+app.get('/espnData', async (req, res) => {
+    let status = 200;
+    const data = await espnAccessor.getEspnData();
+    powerRankingsOrchestrator.orchestrate();
     if (data) {
         res.status(status).send(data);
     } else {
