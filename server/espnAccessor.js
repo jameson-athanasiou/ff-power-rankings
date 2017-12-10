@@ -7,9 +7,9 @@ module.exports = {
         const stats = await espnData.getStats();
 
         return {
-            standings,
+            standings: standings.standings,
             scoreboard,
-            stats
+            stats: stats.stats
         };
     }
 };

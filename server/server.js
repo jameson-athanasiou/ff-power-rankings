@@ -9,7 +9,7 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
 const espnData = require('espn-fantasy-football-data');
-const powerRankingsOrchestrator = require('./powerRankingsOrchestrator');
+const PowerRankingsOrchestrator = require('./PowerRankingsOrchestrator');
 const mongo_express = require('mongo-express/lib/middleware');
 const mogno_express_config = require('../config/mongoExpress.config.js');
 
@@ -77,7 +77,8 @@ app.get('/stats', async (req, res) => {
 app.get('/espnData', async (req, res) => {
     let status = 200;
     const data = await espnAccessor.getEspnData();
-    powerRankingsOrchestrator.orchestrate();
+    const orchestrator = new PowerRankingsOrchestrator();
+    orchestrator.orchestrate(data);
     if (data) {
         res.status(status).send(data);
     } else {
