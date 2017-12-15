@@ -1,12 +1,20 @@
-import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries } from 'react-vis';
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    Legend,
+    CartesianGrid,
+    Tooltip,
+    ResponsiveContainer
+} from 'recharts';
 import React from 'react';
 import powerRankingsData from 'json/mockData/powerRankings';
-import 'style-loader!../../../node_modules/react-vis/dist/style.css';
 
 export default class PowerRankingsOutput extends React.Component {
     constructor(props) {
         super(props);
-        this._formatDataForGraph(powerRankingsData);
+        //this._formatDataForGraph(powerRankingsData);
     }
 
     _formatDataForGraph() {
@@ -26,15 +34,47 @@ export default class PowerRankingsOutput extends React.Component {
         });
     }
 
+    _getChartData() {
+        return [
+            {
+                name: "Jim",
+                week: 1,
+                rank: 2
+            },
+            {
+                name: "Jim",
+                week: 2,
+                rank: 1
+            },
+            {
+                name: "Jim",
+                week: 3,
+                rank: 6
+            },
+            {
+                name: "Jim",
+                week: 4,
+                rank: 5
+            }
+        ];
+    }
+
     _generateLineSeries() {
         return <LineSeries data={this.props.data1} />
     }
 
     render() {
-        return <XYPlot width={300} height={300}>
-                    {this._formatDataForGraph()}
-                    <XAxis title="Week"/>
-                    <YAxis title="Rank"/>
-                </XYPlot>
+        return (
+            <ResponsiveContainer height={600}>
+                <LineChart data={this._getChartData()}>
+                    <CartesianGrid />
+                    <XAxis dataKey="week" />
+                    <YAxis datayKey="rank" type="number" padding={{top: -59, bottom: -120}} ticks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} reversed/>
+                    <Legend verticalAlign="top"/>
+                    <Line dataKey="rank" stroke="#8884d8" />
+                </LineChart>
+            </ResponsiveContainer>
+        )
+
     }
 };
