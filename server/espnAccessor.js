@@ -1,4 +1,5 @@
 const espnData = require('espn-fantasy-football-data');
+const dataAccessor = require('./dataAccessor');
 
 module.exports = {
     async getEspnData() {
@@ -6,10 +7,16 @@ module.exports = {
         const scoreboard = await espnData.getScoreBoard();
         const stats = await espnData.getStats();
 
-        return {
+        const data = {
             standings: standings.standings,
             scoreboard,
             stats: stats.stats
         };
+
+        dataAccessor.saveDataToFile(data, {
+            type: 'leagueData'
+        });
+
+        return data;
     }
 };

@@ -12,6 +12,7 @@ const espnData = require('espn-fantasy-football-data');
 const PowerRankingsOrchestrator = require('./PowerRankingsOrchestrator');
 const mongo_express = require('mongo-express/lib/middleware');
 const mogno_express_config = require('../config/mongoExpress.config.js');
+const dataAccessor = require('./dataAccessor');
 
 const app = express();
 const http = require('http').Server(app);
@@ -70,6 +71,7 @@ app.get('/stats', async (req, res) => {
     if (data) {
         res.status(status).send(data);
     } else {
+        status = 500;
         res.status(status).send({});
     }
 });
@@ -82,9 +84,25 @@ app.get('/espnData', async (req, res) => {
     if (data) {
         res.status(status).send(data);
     } else {
+        status = 500;
         res.status(status).send({});
     }
 });
+
+app.get('/dataFromFile', async (req, res) => {
+    let status = 200;
+    
+    dataAccessor.getDataFromFile('leagueData').then(data => {
+        if (data) {
+            res.status(status).send(data);
+        } else {
+            status = 500;
+            res.status(status).send({});
+        }
+    });
+});
+
+
 
 http.listen(port);
 console.log(`Server listening on port ${port}`); // eslint-disable-line no-console

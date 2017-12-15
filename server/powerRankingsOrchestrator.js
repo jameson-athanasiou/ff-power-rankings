@@ -11,10 +11,9 @@ class PowerRankingsOrchestrator {
     }
 
     orchestrate(data) {
-        this.data = data;
-        this.initializeStatsTable();
-        this.initializeWeekByWeekTable();
-        console.info(this.dataTable);
+        // this.data = data;
+        // this.initializeStatsTable();
+        // this.initializeWeekByWeekTable();
     }
 
     initializeStatsTable() {

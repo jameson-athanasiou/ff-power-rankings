@@ -13,6 +13,14 @@ export default class Main extends React.Component {
         this.state = {};
     }
 
+    getEspnData() {
+        fetch('/espnData');
+    }
+
+    getDataFromFile() {
+        fetch('/dataFromFile');
+    }
+
     render() {
         return  <main>
                     <Switch>
@@ -22,6 +30,9 @@ export default class Main extends React.Component {
                         <Route path='/RosPowerRankForm' component={RosPowerRankForm}/>
                         <Route path='/PowerRankingsOutput' component={PowerRankingsOutput}/>
                     </Switch>
+
+                    <button onClick={this.getEspnData}>Get ESPN Data</button>
+                    <button onClick={this.getDataFromFile}>Get File Data</button>
                 </main>;
     }
 }
