@@ -1,5 +1,5 @@
 language: node_js
-node_js: "7"
+node_js: "8"
 script: yarn pipeline
 cache:
     directories:
@@ -19,7 +19,7 @@ before_script:
 notifications:
   email: false
   slack:
-    rooms: 
+    rooms:
       - dover-boys:HekMr2x7RnLbKn5pCAKmqnLR
     template:
       - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>)"

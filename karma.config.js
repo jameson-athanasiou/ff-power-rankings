@@ -33,8 +33,7 @@ module.exports = function (config) {
         }]
       },
       externals: {
-        'react/lib/ExecutionEnvironment': true,
-        'react/lib/ReactContext': true
+        'react/lib/ExecutionEnvironment': true
       },
       resolve: {
         alias: {
@@ -62,4 +61,4 @@ module.exports = function (config) {
       require("karma-mocha-reporter")
     ]
   });
-}
+};
