@@ -3,13 +3,16 @@ const constants = require('./constants');
 const gameServer = require('./gameServer');
 const powerRankingsServer = require('./powerRankingsServer');
 const express = require('express');
+const espnAccessor = require('./espnAccessor');
 const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
 const espnData = require('espn-fantasy-football-data');
+const PowerRankingsOrchestrator = require('./PowerRankingsOrchestrator');
 const mongo_express = require('mongo-express/lib/middleware');
 const mogno_express_config = require('../config/mongoExpress.config.js');
+const dataAccessor = require('./dataAccessor');
 
 const app = express();
 const http = require('http').Server(app);
@@ -68,9 +71,38 @@ app.get('/stats', async (req, res) => {
     if (data) {
         res.status(status).send(data);
     } else {
+        status = 500;
         res.status(status).send({});
     }
 });
+
+app.get('/espnData', async (req, res) => {
+    let status = 200;
+    const data = await espnAccessor.getEspnData();
+    const orchestrator = new PowerRankingsOrchestrator();
+    orchestrator.orchestrate(data);
+    if (data) {
+        res.status(status).send(data);
+    } else {
+        status = 500;
+        res.status(status).send({});
+    }
+});
+
+app.get('/dataFromFile', async (req, res) => {
+    let status = 200;
+    
+    dataAccessor.getDataFromFile('leagueData').then(data => {
+        if (data) {
+            res.status(status).send(data);
+        } else {
+            status = 500;
+            res.status(status).send({});
+        }
+    });
+});
+
+
 
 http.listen(port);
 console.log(`Server listening on port ${port}`); // eslint-disable-line no-console
