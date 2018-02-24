@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export default class Header extends React.Component {
 
@@ -17,9 +17,9 @@ export default class Header extends React.Component {
                             <li><Link to='/RosPowerRankForm'>Input Power Rankings</Link></li>
                         </ul>
                         <ul>
-                            <li><Link to='/PowerRankingsOutput'>Power Rankings Chart</Link></li>
+                            <li><Link to='/GoogleChartsOutput'>Power Rankings Chart</Link></li>
                         </ul>
                     </nav>
-                </header>
+                </header>;
     }
 }
