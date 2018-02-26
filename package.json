@@ -13,6 +13,7 @@
         "server-debug": "nodemon --inspect --watch server server/server.js",
         "lint": "./node_modules/.bin/eslint server/*.js src/*.js",
         "pipeline": "yarn lint && yarn webpack",
+        "test": "mocha-webpack \"./src/**/*.test.js\" --recursive",
         "webpack": "webpack --config ./webpack.config.js"
     },
     "dependencies": {
