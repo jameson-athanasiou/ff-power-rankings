@@ -12,6 +12,7 @@
         "server": "nodemon --watch server server/server.js",
         "server-debug": "nodemon --inspect --watch server server/server.js",
         "lint": "./node_modules/.bin/eslint server/*.js src/*.js",
+        "mocha": "node ./node_modules/mocha/bin/mocha",
         "pipeline": "yarn lint && yarn webpack && yarn unit-test-server && yarn unit-test-client",
         "unit-test-client": "node scripts/unitTest.js",
         "unit-test-server": "mocha ./test/unit/server/*.test.js",
