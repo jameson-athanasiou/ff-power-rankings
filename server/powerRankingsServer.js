@@ -1,5 +1,4 @@
 const constants = require('./constants');
-const MongoClient = require('mongodb').MongoClient;
 const mockDb = require('./mockDB');
 
 module.exports.postPowerRankings = function (request, response) {
