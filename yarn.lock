@@ -3330,6 +3330,10 @@ mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
+mocha-jsdom@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/mocha-jsdom/-/mocha-jsdom-1.1.0.tgz#e1576fbd0601cc89d358a213a0e5585d1b7c7a01"
+
 mocha-webpack@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/mocha-webpack/-/mocha-webpack-1.0.1.tgz#96d80f711b82a9b5ee307883ce2a1b1794404f3c"
