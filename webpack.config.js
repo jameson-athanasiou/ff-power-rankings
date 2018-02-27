@@ -8,19 +8,19 @@ module.exports = {
         app: paths.src + '/index.js'
     },
     module: {
-        loaders: [{
+        rules: [{
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
             include: [
                 paths.src
-            ],
+            ]
         }, {
             test: /\.json$/,
             loader: 'json-loader',
             include: [
                 paths.src
-            ],
+            ]
         },  {
             test: /\.css$/,
             loader: "style-loader!css-loader"

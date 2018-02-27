@@ -1,4 +1,5 @@
 .git
 .idea
 dist
+reports
 node_modules

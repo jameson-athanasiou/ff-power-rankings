@@ -1,23 +1,19 @@
 const bodyParser = require('body-parser');
 const constants = require('./constants');
-const gameServer = require('./gameServer');
 const powerRankingsServer = require('./powerRankingsServer');
 const express = require('express');
 const espnAccessor = require('./espnAccessor');
-const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
 const espnData = require('espn-fantasy-football-data');
 const PowerRankingsOrchestrator = require('./PowerRankingsOrchestrator');
-const mongo_express = require('mongo-express/lib/middleware');
-const mogno_express_config = require('../config/mongoExpress.config.js');
 const dataAccessor = require('./dataAccessor');
 
 const app = express();
 const http = require('http').Server(app);
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 const environment = process.env.NODE_ENV;
 
 app.use(bodyParser.json());
@@ -37,12 +33,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.use('/mongo_express', mongo_express(mogno_express_config));
-
 app.use('/', express.static(path.resolve('dist/index.html')));
 
-app.get('/game', gameServer.getGame);
-app.post('/game', gameServer.postGame);
 app.post('/powerRankings', powerRankingsServer.postPowerRankings);
 
 app.get('/standings', async (req, res) => {
@@ -91,7 +83,7 @@ app.get('/espnData', async (req, res) => {
 
 app.get('/dataFromFile', async (req, res) => {
     let status = 200;
-    
+
     dataAccessor.getDataFromFile('leagueData').then(data => {
         if (data) {
             res.status(status).send(data);
@@ -103,20 +95,6 @@ app.get('/dataFromFile', async (req, res) => {
 });
 
 
-
-http.listen(port);
-console.log(`Server listening on port ${port}`); // eslint-disable-line no-console
-
-app.post('/team', (request, response) => {
-MongoClient.connect(constants.DATABASE.CONNECTION_STRING, (err, db) => {
-    db.collection(constants.DATABASE.NAME.TEAMS).insertOne({
-      firstThing: '1'
-    }).then(function(result) {
-        response.send({
-            message: 'team sent!'
-        });
-    });
-
-    db.close();
-});
+http.listen(port, () => {
+    console.log(`Server listening on port ${port}`); // eslint-disable-line no-console
 });
