@@ -12,7 +12,7 @@
         "server": "nodemon --watch server server/server.js",
         "server-debug": "nodemon --inspect --watch server server/server.js",
         "lint": "./node_modules/.bin/eslint server/*.js src/*.js",
-        "pipeline": "yarn lint && yarn webpack",
+        "pipeline": "yarn lint && yarn webpack && yarn test",
         "test": "jest --config ./jest.config.json",
         "webpack": "webpack --config ./webpack.config.js"
     },
