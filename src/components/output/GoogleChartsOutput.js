@@ -1,7 +1,5 @@
-import { deepClone } from 'lodash';
 import React from 'react';
-import powerRankingsData from 'json/mockData/powerRankings';
-import leagueDataJson from 'json/leagueData';
+import powerRankingsData from 'json/mockData/powerRankings.json';
 
 export default class PowerRankingsOutput extends React.Component {
     constructor(props) {
@@ -9,7 +7,7 @@ export default class PowerRankingsOutput extends React.Component {
 
         this.rankingData = this.formatDataForCharting();
 
-        window.google.charts.load('current', {'packages':['line']});
+        window.google.charts.load('current', { packages: ['line'] });
         window.google.charts.setOnLoadCallback(this.drawChart.bind(this));
     }
 
@@ -17,25 +15,25 @@ export default class PowerRankingsOutput extends React.Component {
         this.drawChart();
     }
 
-    formatDataForCharting() {
-        const data = deepClone(leagueDataJson);
-        //need power rank over time data. dont actually have that yet...
+    static formatDataForCharting() {
+        // const data = deepClone(leagueDataJson);
+        // need power rank over time data. dont actually have that yet...
     }
 
-    populateColumns(rankingData, chart) {
-        Object.keys(rankingData).forEach(key => {
+    static populateColumns(rankingData, chart) {
+        Object.keys(rankingData).forEach((key) => {
             chart.addColumn('number', key);
         });
     }
 
-    populateRows(rankingData, chart) {
+    static populateRows(rankingData, chart) {
         const rows = [];
-        rankingData.forEach(dataObject => {
-             const row = [];
-             Object.keys(dataObject).forEach(key => {
-                 row.push(dataObject[key]);
-             });
-             rows.push(row);
+        rankingData.forEach((dataObject) => {
+            const row = [];
+            Object.keys(dataObject).forEach((key) => {
+                row.push(dataObject[key]);
+            });
+            rows.push(row);
         });
 
         chart.addRows(rows);
@@ -49,7 +47,7 @@ export default class PowerRankingsOutput extends React.Component {
 
         const options = {
             chart: {
-                title: 'Power Rank Over Time',
+                title: 'Power Rank Over Time'
             },
             width: 900,
             height: 500
@@ -61,10 +59,8 @@ export default class PowerRankingsOutput extends React.Component {
     }
 
     render() {
-
         return (
-            <div id='linechart_material'></div>
+            <div id="linechart_material" />
         );
-
     }
-};
+}

@@ -1,15 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class LabelTextBox extends React.Component {
+const LabelTextBox = ({ labelText, id }) => (
+    <div>
+        <label htmlFor={this.props.id}>{labelText}</label>
+        <input type="textbox" id={id} onChange={this.props.onChange} />
+    </div>
+);
 
-    constructor(props) {
-        super(props);
-    }
+LabelTextBox.propTypes = {
+    labelText: PropTypes.string,
+    id: PropTypes.string
+};
 
-    render() {
-        return  <div>
-                    <label htmlFor={this.props.id}>{this.props.labelText}</label>
-                    <input type="textbox" id={this.props.id} onChange={this.props.onChange}></input>
-                </div>
-    }
-}
+export default LabelTextBox;
