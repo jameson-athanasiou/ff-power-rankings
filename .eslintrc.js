@@ -20,6 +20,8 @@ module.exports = {
     },
     "rules": {
         "comma-dangle": ["error", "never"],
+        "import/first": ["off"],
+        "import/order": ["off"],
         "indent": ["error", 4],
         "jsx-a11y/label-has-for": [ "error", {
             "components": [ "Label" ],
