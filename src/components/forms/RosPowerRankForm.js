@@ -1,13 +1,16 @@
-import Button from 'components/formComponents/Button';
 import React from 'react';
 import LabelTextBox from 'components/formComponents/LabelTextBox';
 import powerRankingsRequestor from 'requestor/powerRankingsRequestor';
-import teams from 'json/teams.json';
+import teamsJson from 'json/teams.json';
+import PropTypes from 'prop-types';
 
-export default class RosPowerRank extends React.Component {
+export default class RosPowerRankForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            persistable: {},
+            teams: this.props.teams || teamsJson
+        };
         this.bindClassMethods();
     }
 
@@ -17,21 +20,25 @@ export default class RosPowerRank extends React.Component {
     }
 
     onChange(param, e) {
-        this.setState({
+        const currentPersistable = this.state.persistable;
+        const newPersistable = {
             [param]: e.target.value
+        };
+        this.setState({
+            persistable: Object.assign(currentPersistable, ...newPersistable)
         });
     }
 
     onSubmit() {
-        if (this.validatePost(this.state)) {
-            powerRankingsRequestor.post(this.state);
+        if (RosPowerRankForm.validatePost(this.state.persistable)) {
+            powerRankingsRequestor.post(this.state.persistable);
         } else {
-            // throw err
+            throw new Error('post data invalid');
         }
     }
 
     mapTeams() {
-        return teams.teams.map(team => (
+        return this.state.teams.map(team => (
             <LabelTextBox
                 key={team.owner}
                 id={`team-${team.owner}`}
@@ -50,7 +57,7 @@ export default class RosPowerRank extends React.Component {
 
     render() {
         return (
-            <div className="game-form">
+            <div className="ros-power-rank-form">
                 <LabelTextBox
                     id="weekNumber"
                     labelText="Week Number"
@@ -59,8 +66,12 @@ export default class RosPowerRank extends React.Component {
                     }}
                 />
                 {this.mapTeams()}
-                <Button text="Submit" onClick={this.onSubmit} />
+                <button onClick={this.onSubmit}>Submit</button>
             </div>
         );
     }
 }
+
+RosPowerRankForm.propTypes = {
+    teams: PropTypes.array
+};

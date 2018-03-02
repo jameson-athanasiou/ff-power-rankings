@@ -11,6 +11,8 @@ describe('<Home />', () => {
     test('state is instantiated correctly', () => {
         const wrapper = mount(<Home />);
         expect(wrapper.state()).toMatchObject({});
+
+        wrapper.unmount();
     });
 });
 

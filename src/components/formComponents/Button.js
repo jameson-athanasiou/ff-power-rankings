@@ -1,22 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class Button extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-    }
+const button = ({ click, text }) => (
+    <button onClick={click}>{text}</button>
+);
 
-    handleClick() {
-        this.props.onClick();
-    }
+export default button;
 
-    render() {
-        return <button onClick={this.handleClick}>{this.props.text}</button>;
-    }
-}
-
-Button.propTypes = {
-    onClick: PropTypes.func,
+button.propTypes = {
+    click: PropTypes.func,
     text: PropTypes.string
 };

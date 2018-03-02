@@ -12,15 +12,9 @@ describe('<Button />', () => {
 
     test('when clicked then the click event is fired correctly', () => {
         const clickCallback = jest.fn();
-        const wrapper = shallow(<Button onClick={clickCallback} />);
+        const wrapper = shallow(<Button click={clickCallback} />);
         wrapper.find('button').simulate('click');
         expect(clickCallback).toBeCalled();
-    });
-
-    test('when instantiated then the onclick callback is bound correctly', () => {
-        Button.prototype.handleClick.bind = jest.fn();
-        shallow(<Button />);
-        expect(Button.prototype.handleClick.bind).toBeCalled();
     });
 });
 

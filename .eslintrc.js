@@ -32,6 +32,7 @@ module.exports = {
         }],
         "max-len": ["error", 200],
         "no-unused-vars": "error",
+        "react/forbid-prop-types": ["off"],
         "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],
