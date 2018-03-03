@@ -1,14 +1,22 @@
 import React from 'react';
 import powerRankingsData from 'json/mockData/powerRankings.json';
 
-export default class PowerRankingsOutput extends React.Component {
+export default class GoogleChartsOutput extends React.Component {
     constructor(props) {
         super(props);
 
-        this.rankingData = this.formatDataForCharting();
+        this.rankingData = GoogleChartsOutput.formatDataForCharting();
+        this.chart = null;
 
         window.google.charts.load('current', { packages: ['line'] });
-        window.google.charts.setOnLoadCallback(this.drawChart.bind(this));
+        window.google.charts.setOnLoadCallback(() => {
+            this.setupData();
+            this.drawChart();
+        });
+
+        window.addEventListener('resize', () => {
+            this.drawChart();
+        });
     }
 
     componentWillUpdate() {
@@ -20,13 +28,13 @@ export default class PowerRankingsOutput extends React.Component {
         // need power rank over time data. dont actually have that yet...
     }
 
-    static populateColumns(rankingData, chart) {
+    populateColumns(rankingData) {
         Object.keys(rankingData).forEach((key) => {
-            chart.addColumn('number', key);
+            this.chart.addColumn('number', key);
         });
     }
 
-    static populateRows(rankingData, chart) {
+    populateRows(rankingData) {
         const rows = [];
         rankingData.forEach((dataObject) => {
             const row = [];
@@ -36,31 +44,37 @@ export default class PowerRankingsOutput extends React.Component {
             rows.push(row);
         });
 
-        chart.addRows(rows);
+        this.chart.addRows(rows);
+    }
+
+    setupData() {
+        this.chart = new window.google.visualization.DataTable();
+        this.populateColumns(powerRankingsData[0]);
+        this.populateRows(powerRankingsData);
     }
 
     drawChart() {
-        const data = new window.google.visualization.DataTable();
-
-        this.populateColumns(powerRankingsData[0], data);
-        this.populateRows(powerRankingsData, data);
-
         const options = {
             chart: {
                 title: 'Power Rank Over Time'
-            },
-            width: 900,
-            height: 500
+            }
         };
 
         const chart = new google.charts.Line(document.getElementById('linechart_material'));
 
-        chart.draw(data, google.charts.Line.convertOptions(options));
+        chart.draw(this.chart, google.charts.Line.convertOptions(options));
     }
 
     render() {
         return (
-            <div id="linechart_material" />
+            <div
+                id="linechart_material"
+                style={{
+                    minHeight: '200px',
+                    height: '4em',
+                    width: '100%'
+                }}
+            />
         );
     }
 }
