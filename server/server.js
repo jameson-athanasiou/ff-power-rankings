@@ -6,8 +6,8 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
 const espnData = require('espn-fantasy-football-data');
-const PowerRankingsOrchestrator = require('./PowerRankingsOrchestrator');
 const dataAccessor = require('./dataAccessor');
+const analyze = require('./analyze');
 
 const app = express();
 const http = require('http').Server(app);
@@ -30,6 +30,13 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
+
+app.all('*', (req, res, next) => {
+    if (req.originalUrl !== '/json' && req.originalUrl !== '/json/version') {
+        console.log(`${req.method} ${req.originalUrl}`); // eslint-disable-line no-console
+    }
+    next();
+});
 
 app.use('/', express.static(path.resolve('dist/index.html')));
 
@@ -69,8 +76,6 @@ app.get('/stats', async (req, res) => {
 app.get('/espnData', async (req, res) => {
     let status = 200;
     const data = await espnAccessor.getEspnData();
-    const orchestrator = new PowerRankingsOrchestrator();
-    orchestrator.orchestrate(data);
     if (data) {
         res.status(status).send(data);
     } else {
@@ -79,9 +84,22 @@ app.get('/espnData', async (req, res) => {
     }
 });
 
+app.get('/runAnalysis', async (req, res) => {
+    dataAccessor.getDataFromFile('leagueData').then((data) => {
+        if (data) {
+            analyze.generatePowerRankings(data).then((analysis) => {
+                res.status(200).send(analysis);
+            }, (err) => {
+                res.status(500).send(err);
+            });
+        } else {
+            res.status(500).send({});
+        }
+    });
+});
+
 app.get('/dataFromFile', async (req, res) => {
     let status = 200;
-
     dataAccessor.getDataFromFile('leagueData').then((data) => {
         if (data) {
             res.status(status).send(data);
@@ -91,7 +109,6 @@ app.get('/dataFromFile', async (req, res) => {
         }
     });
 });
-
 
 http.listen(port, () => {
     console.log(`Server listening on port ${port}`); // eslint-disable-line no-console
