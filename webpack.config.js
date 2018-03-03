@@ -30,18 +30,10 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve('dist')
     },
-    resolve: {
-        alias: {
-            json: paths.json,
-            server: './server',
-            src: paths.src,
-            test: paths.clientTest
-        }
-    },
     plugins: [
         new HtmlWebpackPlugin({
           title: 'Power Rankings',
           template: './index.html'
-        })
+        }),
     ]
 };

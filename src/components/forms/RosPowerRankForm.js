@@ -1,46 +1,77 @@
-import Button from 'src/components/formComponents/Button';
 import React from 'react';
-import LabelTextBox from 'src/components/formComponents/LabelTextBox';
-import powerRankingsRequestor from 'src/requestor/powerRankingsRequestor';
-import teams from 'json/teams';
+import LabelTextBox from 'components/formComponents/LabelTextBox';
+import powerRankingsRequestor from 'requestor/powerRankingsRequestor';
+import teamsJson from 'json/teams.json';
+import PropTypes from 'prop-types';
 
-export default class RosPowerRank extends React.Component {
-
+export default class RosPowerRankForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            persistable: {},
+            teams: this.props.teams || teamsJson
+        };
+        this.bindClassMethods();
     }
 
-    _onChange(param, e) {
-        const postData = this.state.postData;
-        this.setState({
+    bindClassMethods() {
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onChange(param, e) {
+        const currentPersistable = this.state.persistable;
+        const newPersistable = {
             [param]: e.target.value
+        };
+        this.setState({
+            persistable: Object.assign(currentPersistable, ...newPersistable)
         });
     }
 
-    _onSubmit() {
-        if (this._validatePost(this.state)) {
-            powerRankingsRequestor.post(this.state);
+    onSubmit() {
+        if (RosPowerRankForm.validatePost(this.state.persistable)) {
+            powerRankingsRequestor.post(this.state.persistable);
         } else {
-            //throw err
+            throw new Error('post data invalid');
         }
     }
 
-    _mapTeams() {
-        return teams.teams.map((team) => {
-            return <LabelTextBox key={team.owner} id={`team-${team.owner}`} ref={team.owner} labelText={`${team.owner} - ${team.name}`} onChange={this._onChange.bind(this, team.owner)} />
-        });
+    mapTeams() {
+        return this.state.teams.map(team => (
+            <LabelTextBox
+                key={team.owner}
+                id={`team-${team.owner}`}
+                ref={team.owner}
+                labelText={`${team.owner} - ${team.name}`}
+                onChange={(e) => {
+                    this.onChange(team.owner, e);
+                }}
+            />
+        ));
     }
 
-    _validatePost(data) {
+    static validatePost() {
         return true;
     }
 
     render() {
-        return  <div className='game-form'>
-            <LabelTextBox id='weekNumber' labelText='Week Number' onChange={this._onChange.bind(this, 'week')} />
-                    {this._mapTeams()}
-                    <Button text='Submit' onClick={this._onSubmit.bind(this)}/>
-                </div>
+        return (
+            <div className="ros-power-rank-form">
+                <LabelTextBox
+                    id="weekNumber"
+                    labelText="Week Number"
+                    onChange={(e) => {
+                        this.onChange('week', e);
+                    }}
+                />
+                {this.mapTeams()}
+                <button onClick={this.onSubmit}>Submit</button>
+            </div>
+        );
     }
 }
+
+RosPowerRankForm.propTypes = {
+    teams: PropTypes.array
+};

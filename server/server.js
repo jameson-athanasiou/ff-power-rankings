@@ -1,5 +1,4 @@
 const bodyParser = require('body-parser');
-const constants = require('./constants');
 const powerRankingsServer = require('./powerRankingsServer');
 const express = require('express');
 const espnAccessor = require('./espnAccessor');
@@ -14,14 +13,13 @@ const app = express();
 const http = require('http').Server(app);
 
 const port = process.env.PORT || 3000;
-const environment = process.env.NODE_ENV;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-//webpack.devtool = 'source-map';
+// webpack.devtool = 'source-map';
 const compiler = webpack(webpackConfig);
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
@@ -38,7 +36,7 @@ app.use('/', express.static(path.resolve('dist/index.html')));
 app.post('/powerRankings', powerRankingsServer.postPowerRankings);
 
 app.get('/standings', async (req, res) => {
-    let status = 200;
+    const status = 200;
     const data = await espnData.getStandings();
     if (data) {
         res.status(status).send(data);
@@ -48,7 +46,7 @@ app.get('/standings', async (req, res) => {
 });
 
 app.get('/scoreboard', async (req, res) => {
-    let status = 200;
+    const status = 200;
     const data = await espnData.getScoreBoard();
     if (data) {
         res.status(status).send(data);
@@ -84,7 +82,7 @@ app.get('/espnData', async (req, res) => {
 app.get('/dataFromFile', async (req, res) => {
     let status = 200;
 
-    dataAccessor.getDataFromFile('leagueData').then(data => {
+    dataAccessor.getDataFromFile('leagueData').then((data) => {
         if (data) {
             res.status(status).send(data);
         } else {

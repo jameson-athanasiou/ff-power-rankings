@@ -1,31 +1,34 @@
-import Button from 'src/components/formComponents/Button';
 import React from 'react';
-import GameInput from 'src/components/inputGroups/GameInput';
-import LabelTextBox from 'src/components/formComponents/LabelTextBox';
-import schedule from 'json/schedule';
+import GameInput from 'components/inputGroups/GameInput';
+import schedule from 'json/schedule.json';
+import PropTypes from 'prop-types';
 
 export default class MatchupsForm extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    _mapSchedule() {
-        let returnValue = <div></div>;
-        const weekNumber = this.props.weekNumber || 1;
+    mapSchedule() {
+        let returnValue = <div />;
+        const { weekNumber } = this.props;
         const currentWeek = schedule[`week${weekNumber}`];
         if (currentWeek && currentWeek.matchups) {
-            returnValue = currentWeek.matchups.map((game, index) => {
-                return <GameInput key={`matchup-${index}`} homeTeam={game.homeTeam} awayTeam={game.awayTeam} />
-            });
+            returnValue = currentWeek.matchups.map((game, index) => <GameInput key={`matchup-${index}`} homeTeam={game.homeTeam} awayTeam={game.awayTeam} />);
         }
 
         return returnValue;
     }
 
     render() {
-        return  <div className='matchups'>
-                    {this._mapSchedule()}
-                </div>
+        return (
+            <div className="matchups">
+                {this.mapSchedule()}
+            </div>
+        );
     }
 }
+
+MatchupsForm.propTypes = {
+    weekNumber: PropTypes.number
+};
+
+
+MatchupsForm.defaultProps = {
+    weekNumber: 1
+};

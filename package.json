@@ -11,20 +11,28 @@
         "start-debug": "yarn webpack && yarn server-debug",
         "server": "nodemon --watch server server/server.js",
         "server-debug": "nodemon --inspect --watch server server/server.js",
-        "lint": "./node_modules/.bin/eslint server/*.js src/*.js",
-        "pipeline": "yarn lint && yarn webpack",
-        "test": "jest --config ./jest.config.json",
+        "lint": "./node_modules/.bin/eslint server/**/*.js src/**/*.js",
+        "pipeline": "yarn lint && yarn webpack && yarn test",
+        "test": "jest --config ./jest.config.js --coverage",
+        "test-debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
+        "test-watch": "jest --config ./jest.config.js --watch",
         "webpack": "webpack --config ./webpack.config.js"
     },
     "dependencies": {
+        "babel-plugin-module-resolver": "^3.1.0",
+        "body-parser": "^1.17.2",
         "chalk": "^2.0.1",
         "espn-fantasy-football-data": "https://github.com/jameson693/espn-fantasy-football-data",
         "express": "^4.15.3",
         "lodash": "^4.17.5",
+        "prop-types": "^15.6.1",
         "react": "^16.0.0",
         "react-dom": "^16.0.0",
         "react-router-dom": "^4.2.2",
-        "request": "^2.83.0"
+        "request": "^2.83.0",
+        "webpack": "^3.6.0",
+        "webpack-dev-middleware": "^1.12.0",
+        "webpack-hot-middleware": "^2.19.1"
     },
     "devDependencies": {
         "babel-core": "^6.25.0",
@@ -33,14 +41,19 @@
         "babel-preset-env": "^1.6.1",
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",
-        "body-parser": "^1.17.2",
         "css-loader": "^0.28.7",
+        "enzyme": "^3.3.0",
+        "enzyme-adapter-react-16": "^1.1.1",
         "eslint": "^4.7.2",
+        "eslint-config-airbnb": "^16.1.0",
+        "eslint-import-resolver-babel-module": "^4.0.0",
+        "eslint-plugin-import": "^2.9.0",
+        "eslint-plugin-jsx-a11y": "^6.0.3",
+        "eslint-plugin-react": "^7.7.0",
         "html-webpack-plugin": "webpack-contrib/html-webpack-plugin",
+        "jest": "^22.4.2",
+        "jest-enzyme": "^4.2.0",
         "nodemon": "^1.11.0",
-        "style-loader": "^0.19.0",
-        "webpack": "^3.6.0",
-        "webpack-dev-middleware": "^1.12.0",
-        "webpack-hot-middleware": "^2.19.1"
+        "style-loader": "^0.19.0"
     }
 }
