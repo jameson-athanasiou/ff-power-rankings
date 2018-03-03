@@ -52,4 +52,17 @@ describe('<RosPowerRankForm />', () => {
 
         expect(powerRankingsRequestor.post).not.toBeCalled();
     });
+
+    test('renders a label text box component as expected', () => {
+        RosPowerRankForm.prototype.mapTeams = jest.fn();
+
+        const wrapper = shallow(<RosPowerRankForm teams={[]} />);
+        const labelTextBox = wrapper.find('LabelTextBox');
+        const props = labelTextBox.props();
+
+        expect(labelTextBox.length).toBe(1);
+        expect(props.id).toBe('weekNumber');
+        expect(props.labelText).toBe('Week Number');
+        expect(RosPowerRankForm.prototype.mapTeams).toBeCalled();
+    });
 });
