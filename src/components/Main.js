@@ -31,8 +31,8 @@ export default class Main extends React.Component {
                     <Route path="/GoogleChartsOutput" component={GoogleChartsOutput} />
                 </Switch>
 
-                <button onClick={this.getEspnData}>Get ESPN Data</button>
-                <button onClick={this.getDataFromFile}>Get File Data</button>
+                <button onClick={Main.getEspnData}>Get ESPN Data</button>
+                <button onClick={Main.getDataFromFile}>Get File Data</button>
             </main>
         );
     }
