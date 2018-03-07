@@ -64,27 +64,38 @@ const rankByWins = (weekStatsByTeam) => {
     const ranking = Object.keys(weekStatsByTeam).map(ownerName => ({
         owner: ownerName,
         name: weekStatsByTeam[ownerName].team,
-        wins: weekStatsByTeam[ownerName].win ? 1 : 0
+        wins: weekStatsByTeam[ownerName].win ? 1 : 0,
+        points: parseInt(weekStatsByTeam[ownerName].points, 10)
     }));
 
-    return ranking.sort((teamOne, teamTwo) => teamTwo.wins - teamOne.wins);
+    // return ranking.sort((teamOne, teamTwo) => teamTwo.wins - teamOne.wins);
+    return ranking.sort((teamOne, teamTwo) => {
+        if (teamTwo.wins === teamOne.wins) {
+            return teamTwo.points - teamOne.points;
+        }
+
+        return teamTwo.wins - teamOne.wins;
+    });
 };
 
 const parseWeek = ({ scoreboard }) => {
     const rankingsObject = {};
     scoreboard.forEach((game) => {
+        const firstTeamPoints = parseInt(game[0].points, 10);
+        const secondTeamPoints = parseInt(game[1].points, 10);
+
         rankingsObject[game[0].owner] = {
             owner: game[0].owner,
             team: game[0].team,
             points: game[0].points,
-            win: game[0].points > game[1].points
+            win: firstTeamPoints > secondTeamPoints
         };
 
         rankingsObject[game[1].owner] = {
             owner: game[1].owner,
             team: game[1].team,
             points: game[1].points,
-            win: game[1].points > game[0].points
+            win: secondTeamPoints > firstTeamPoints
         };
     });
 
@@ -115,17 +126,20 @@ const createWeekOverWeekRankings = async (data) => {
 // };
 
 const getCombinedWeekRankings = (previousWeek, currentWeek, stat = 'points') => previousWeek.map((team) => {
-    // TODO: something in here (or the method that calls this) is borking the total win numbers when combining weeks
     const matchedTeam = currentWeek.find(currentTeam => currentTeam.owner === team.owner);
-    // if (matchedTeam.owner === 'Jameson Athanasiou' && stat === 'wins') {
-    //     debugger;
-    // }
     return {
         owner: team.owner,
         name: team.name,
+        points: parseInt(team.points, 10) + parseInt(matchedTeam.points, 10),
         [stat]: parseInt(team[stat], 10) + parseInt(matchedTeam[stat], 10)
     };
-}).sort((teamOne, teamTwo) => teamTwo[stat] - teamOne[stat]);
+}).sort((teamOne, teamTwo) => {
+    if (stat === 'points' || (stat === 'wins' && (teamTwo.wins === teamOne.wins))) {
+        return teamTwo.points - teamOne.points;
+    }
+
+    return teamTwo.wins - teamOne.wins;
+});
 
 const finalizeWeekToDateRankings = (data) => {
     const rankings = {
@@ -144,7 +158,7 @@ const finalizeWeekToDateRankings = (data) => {
 
     return rankings;
 };
-//
+
 // const finalizePowerRankNumbers = (rankings) => {
 //     const finalRankings = [];
 //     Object.keys(rankings).forEach((key, i) => {
