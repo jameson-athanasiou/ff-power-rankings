@@ -12,42 +12,6 @@ const writeTeamFile = data => new Promise((resolve, reject) => {
         type: 'teams'
     }).then(resolve, reject);
 });
-//
-// const overallRankByPoints = stats => new Promise((resolve) => {
-//     const ranking = stats.map(teamStats => ({
-//         owner: teamStats.OWNER,
-//         name: teamStats.TEAM,
-//         points: teamStats.PF
-//     }));
-//
-//     resolve(ranking.sort((teamOne, teamTwo) => teamTwo.points - teamOne.points));
-// });
-//
-// const overallRankByWins = stats => new Promise((resolve) => {
-//     const ranking = stats.map((teamStats) => {
-//         const homeWins = teamStats.HOME.substring(0, 1);
-//         const awayWins = teamStats.AWAY.substring(0, 1);
-//         const wins = parseInt(homeWins, 10) + parseInt(awayWins, 10);
-//
-//         return {
-//             owner: teamStats.OWNER,
-//             name: teamStats.TEAM,
-//             wins
-//         };
-//     });
-//
-//     resolve(ranking.sort((teamOne, teamTwo) => teamTwo.wins - teamOne.wins));
-// });
-//
-// const createOverallRankings = async (data) => {
-//     const rankGroups = {};
-//     const teams = await dataAccessor.getDataFromFile('teams');
-//
-//     rankGroups.points = await overallRankByPoints(data);
-//     rankGroups.wins = await overallRankByWins(data);
-//
-//     return rankGroups;
-// };
 
 const rankByPoints = (weekStatsByTeam) => {
     const ranking = Object.keys(weekStatsByTeam).map(ownerName => ({
@@ -68,7 +32,6 @@ const rankByWins = (weekStatsByTeam) => {
         points: parseInt(weekStatsByTeam[ownerName].points, 10)
     }));
 
-    // return ranking.sort((teamOne, teamTwo) => teamTwo.wins - teamOne.wins);
     return ranking.sort((teamOne, teamTwo) => {
         if (teamTwo.wins === teamOne.wins) {
             return teamTwo.points - teamOne.points;
@@ -111,20 +74,6 @@ const createWeekOverWeekRankings = async (data) => {
     return rankGroups;
 };
 
-// const combineWeekRankings = (weeksToCombine) => {
-//     const combinedRankings = weeksToCombine[0];
-//     weeksToCombine.forEach((week, i) => {
-//         week.forEach((currentTeam) => {
-//             if (i > 0) {
-//                 const matchingTeam = combinedRankings.find(finalTeam => finalTeam.owner === currentTeam.owner);
-//                 matchingTeam.points += parseInt(currentTeam.points, 10);
-//             }
-//         });
-//     });
-//
-//     return combinedRankings.sort((teamOne, teamTwo) => teamTwo.points - teamOne.points);
-// };
-
 const getCombinedWeekRankings = (previousWeek, currentWeek, stat = 'points') => previousWeek.map((team) => {
     const matchedTeam = currentWeek.find(currentTeam => currentTeam.owner === team.owner);
     return {
@@ -159,29 +108,6 @@ const finalizeWeekToDateRankings = (data) => {
     return rankings;
 };
 
-// const finalizePowerRankNumbers = (rankings) => {
-//     const finalRankings = [];
-//     Object.keys(rankings).forEach((key, i) => {
-//         rankings[key].forEach((team, j) => {
-//             if (!i) {
-//                 const rankObject = {
-//                     owner: team.owner,
-//                     name: team.name,
-//                     averageRank: j + 1
-//                 };
-//                 finalRankings.push(rankObject);
-//             } else {
-//                 const currentTeam = finalRankings.find(teamObj => teamObj.owner === team.owner);
-//                 if (currentTeam) {
-//                     currentTeam.averageRank = (currentTeam.averageRank + j + 1) / (i + 1);
-//                 }
-//             }
-//         });
-//     });
-//
-//     return finalRankings;
-// };
-
 const producePowerRankNumbers = (rankings) => {
     const powerRank = {};
 
@@ -204,15 +130,11 @@ const producePowerRankNumbers = (rankings) => {
 
 const generatePowerRankings = data => new Promise((resolve, reject) => {
     writeTeamFile(data.stats).then(async () => {
-        // const rankings = await createOverallRankings(data.stats);
-        // const finalRankings = finalizePowerRankNumbers(rankings);
-
         const rankings = await createWeekOverWeekRankings(data.scoreboard);
         const finalRankings = finalizeWeekToDateRankings(rankings);
 
         const arrayOfArrays = Object.keys(finalRankings).map(key => finalRankings[key]);
         const powerRankings = producePowerRankNumbers(arrayOfArrays);
-        // const combinedRankings = combineWeekRankings(arr);
 
         resolve(powerRankings);
     }, reject);
