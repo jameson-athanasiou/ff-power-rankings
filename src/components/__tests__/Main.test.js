@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import { HashRouter } from 'react-router-dom';
 import Main from '../Main';
 import Home from '../Home';
 import GameForm from 'components/forms/GameForm';

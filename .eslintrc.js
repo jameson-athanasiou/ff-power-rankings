@@ -31,6 +31,7 @@ module.exports = {
             "allowChildren": false
         }],
         "max-len": ["error", 200],
+        "no-plusplus": ["off"],
         "no-unused-vars": "error",
         "react/forbid-prop-types": ["off"],
         "react/jsx-filename-extension": [1, { "extensions": [".js"] }],

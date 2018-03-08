@@ -1,7 +1,6 @@
 import React from 'react';
 import LabelTextBox from 'components/formComponents/LabelTextBox';
 import powerRankingsRequestor from 'requestor/powerRankingsRequestor';
-import teamsJson from 'json/teams.json';
 import PropTypes from 'prop-types';
 
 export default class RosPowerRankForm extends React.Component {
@@ -9,7 +8,7 @@ export default class RosPowerRankForm extends React.Component {
         super(props);
         this.state = {
             persistable: {},
-            teams: this.props.teams || teamsJson
+            teams: this.props.teams || []
         };
         this.bindClassMethods();
     }

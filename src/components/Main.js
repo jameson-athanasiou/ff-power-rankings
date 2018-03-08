@@ -20,6 +20,10 @@ export default class Main extends React.Component {
         fetch('/dataFromFile');
     }
 
+    static runAnalysis() {
+        fetch('/runAnalysis');
+    }
+
     render() {
         return (
             <main>
@@ -33,6 +37,7 @@ export default class Main extends React.Component {
 
                 <button onClick={Main.getEspnData}>Get ESPN Data</button>
                 <button onClick={Main.getDataFromFile}>Get File Data</button>
+                <button onClick={Main.runAnalysis}>Analyze!</button>
             </main>
         );
     }
