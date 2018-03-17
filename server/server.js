@@ -8,6 +8,7 @@ const webpackConfig = require('../webpack.config');
 const espnData = require('espn-fantasy-football-data');
 const dataAccessor = require('./dataAccessor');
 const analyze = require('./analyze');
+const DataTable = require('./DataTable');
 
 const app = express();
 const http = require('http').Server(app);
@@ -91,6 +92,27 @@ app.get('/runAnalysis', async (req, res) => {
                 res.status(200).send(analysis);
             }, (err) => {
                 res.status(500).send(err);
+            });
+        } else {
+            res.status(500).send({});
+        }
+    });
+});
+
+app.get('/tables', async (req, res) => {
+    dataAccessor.getDataFromFile('leagueData').then((data) => {
+        if (data) {
+            const pointsPerGameTable = new DataTable('PointsPerGame');
+            pointsPerGameTable.initializeFromDataSet(data.scoreboard);
+            pointsPerGameTable.writeTableToFile();
+
+            const gameOutComeTable = new DataTable('GameOutcomes');
+            gameOutComeTable.initializeFromDataSet(data.scoreboard);
+            gameOutComeTable.writeTableToFile();
+
+            res.status(200).send({
+                ppg: pointsPerGameTable.getTable(),
+                outcomes: gameOutComeTable.getTable()
             });
         } else {
             res.status(500).send({});

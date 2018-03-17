@@ -8,7 +8,7 @@ const fileMap = {
 
 module.exports = {
     saveDataToFile(data, options) {
-        const fileName = options.type ? fileMap[options.type] : fileMap.powerRankings;
+        const fileName = options.fileName || (options.type ? fileMap[options.type] : fileMap.powerRankings);
         return new Promise((resolve, reject) => {
             fs.writeFile(fileName, JSON.stringify(data), (err) => {
                 if (err) {
