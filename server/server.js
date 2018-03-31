@@ -85,6 +85,14 @@ app.get('/espnData', async (req, res) => {
     }
 });
 
+app.get('/calculateRosterStrength', async (req, res) => {
+    analyze.calculateRosterStrength().then((data) => {
+        res.status(200).send(data || {});
+    }, (err) => {
+        res.status(500).send(err);
+    });
+});
+
 app.get('/runAnalysis', async (req, res) => {
     dataAccessor.getDataFromFile('leagueData').then((data) => {
         if (data) {
