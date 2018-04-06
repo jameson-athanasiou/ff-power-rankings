@@ -30,6 +30,7 @@ module.exports = {
             },
             "allowChildren": false
         }],
+        "linebreak-style": ["off"],
         "max-len": ["error", 200],
         "no-plusplus": ["off"],
         "no-unused-vars": "error",
