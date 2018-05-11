@@ -76,7 +76,8 @@ app.get('/stats', async (req, res) => {
 
 app.get('/espnData', async (req, res) => {
     let status = 200;
-    const data = await espnAccessor.getEspnData();
+    // const data = await espnAccessor.getEspnData();
+    const data = await espnAccessor.getDataFromApi();
     if (data) {
         res.status(status).send(data);
     } else {
