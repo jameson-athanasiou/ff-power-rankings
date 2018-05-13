@@ -5,6 +5,7 @@ import GameForm from 'components/forms/GameForm';
 import ScoreInputForm from 'components/forms/ScoreInputForm';
 import RosPowerRankForm from 'components/forms/RosPowerRankForm';
 import GoogleChartsOutput from 'components/output/GoogleChartsOutput';
+import Standings from 'components/output/Standings';
 
 export default class Main extends React.Component {
     constructor(props) {
@@ -37,6 +38,7 @@ export default class Main extends React.Component {
                     <Route path="/ScoreInputForm" component={ScoreInputForm} />
                     <Route path="/RosPowerRankForm" component={RosPowerRankForm} />
                     <Route path="/GoogleChartsOutput" component={GoogleChartsOutput} />
+                    <Route path="/standings" component={Standings} />
                 </Switch>
 
                 <button onClick={Main.getEspnData}>Get ESPN Data</button>

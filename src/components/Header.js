@@ -12,6 +12,7 @@ export default () => (
             </ul>
             <ul>
                 <li><Link to="/GoogleChartsOutput" href="/GoogleChartsOutput">Power Rankings Chart</Link></li>
+                <li><Link to="/standings" href="/standings">Standings</Link></li>
             </ul>
         </nav>
     </header>

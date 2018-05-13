@@ -3,10 +3,12 @@ const paths = require('./config/paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
     devtool: 'eval-source-map',
-    entry: {
-        app: paths.src + '/index.js'
-    },
+    entry: [
+        'babel-polyfill',
+        `${paths.src}/index.js`
+    ],
     module: {
         rules: [{
             test: /\.js$/,
@@ -23,7 +25,7 @@ module.exports = {
             ]
         },  {
             test: /\.css$/,
-            loader: "style-loader!css-loader"
+            loader: 'style-loader!css-loader'
         }]
     },
     output: {
@@ -32,8 +34,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-          title: 'Power Rankings',
-          template: './index.html'
-        }),
+            title: 'Power Rankings',
+            template: './index.html'
+        })
     ]
 };
