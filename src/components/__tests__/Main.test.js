@@ -25,7 +25,7 @@ describe('<Main />', () => {
 
     test('renders all the necessary routes', () => {
         const wrapper = shallow(<Main />);
-        expect(wrapper.find('Route').length).toBe(5);
+        expect(wrapper.find('Route').length).toBe(6);
     });
 
     test('Home route is constructed correctly', () => {

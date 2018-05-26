@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, LinearProgress, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-export default class Standings extends React.Component {
+class Standings extends React.Component {
     state = {
         standings: [],
         loading: true
@@ -47,3 +47,5 @@ export default class Standings extends React.Component {
         return this.state.loading ? this.getLoadingContent() : this.buildStandingsPanels();
     }
 }
+
+export default Standings;
