@@ -18,6 +18,11 @@ module.exports = {
             ]
         }
     },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "jsx": true,
+        "ecmaVersion": 7
+    },
     "rules": {
         "comma-dangle": ["error", "never"],
         "import/first": ["off"],
