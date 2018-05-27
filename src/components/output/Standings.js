@@ -1,9 +1,8 @@
 import React from 'react';
-import { Avatar, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, LinearProgress, Typography, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@material-ui/core';
+import { Avatar, ExpansionPanel, ExpansionPanelSummary, LinearProgress, Typography, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PropTypes from 'prop-types';
-import StandingsDetail from 'components/output/StandingsDetail';
 import { merge } from 'lodash';
 
 const styles = {
@@ -33,7 +32,7 @@ class Standings extends React.Component {
         });
 
         const getStats = new Promise((resolve, reject) => {
-            fetch('/stats').then(data => data.json()).then(({stats}) => {
+            fetch('/stats').then(data => data.json()).then(({ stats }) => {
                 resolve(stats);
             }, reject);
         });
@@ -41,9 +40,7 @@ class Standings extends React.Component {
         Promise.all([getStandings, getStats]).then((values) => {
             const standings = values[0];
             const stats = values[1];
-            const teamData = standings.map((team, index) => {
-                return merge(team, stats[index]);
-            });
+            const teamData = standings.map((team, index) => merge(team, stats[index]));
 
             this.setState({
                 teamData,
@@ -58,9 +55,6 @@ class Standings extends React.Component {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Avatar>{index + 1}</Avatar><Typography className={this.props.classes.panelSummary}> {team.team} </Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <StandingsDetail data={this.state.standings[index]} />
-                </ExpansionPanelDetails>
             </ExpansionPanel>
         ));
 
