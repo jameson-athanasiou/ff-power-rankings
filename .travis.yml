@@ -5,17 +5,6 @@ cache:
   directories:
   - node_modules
 dist: trusty
-deploy:
-  provider: elasticbeanstalk
-  access_key_id: AKIAJ45XXKRU5P4ZIGCQ
-  secret_access_key:
-    secure: INYgiaZt+utP63ah67M4mHuQBPmqPln2i6g/TTuJvA7wB1JJ0NJQYaiJC1mD1mBvBLNVs2cINABTXwqBgKAGpbCtLgczBynYySyqYoO2fZpTWv0YFPQduoIvnloNsd2qQjnDwvE7hpDaXZpyOV73iUW4I7QJufRkMtbcoCG3GQlip3niZ4u3JFhaeh8WXeQq32W239SHi/M/gU/mVzGOd68Bz4wrbcTLIaflpHi5Gf96rwQWvyhem9cQFvSpigHg/HObJ/OKmnZoNWDG2yVJLpaLff4m+ySD8Dqu8gLpZh1nuD4qHB5v7cRCf8F13Zq5RhlG6oTG71aLcO2H7BcgYcJzD5SNBdt6jFOCrxmkYfrFPOtaZBtrKoZn+MjPp8UwjkUSYtZVUzw3tpSYEVSDxlq3NRFhB/AVdmLFvICJe4nL84EVpoXuToAbCsvNnpFOuUqBlU9I6CaQAq7+1ggU+29Ub7j03JwCf2k5tgzuZ2OJxJwCoXtKtCyZQxZdbubJGvQmkGcrJk4PdWpvl8pXE8d0J1YsIKPufIr+ouTLo2c0R41/Qe5Kg+/sb+vW+180gv0o3pj1szJTmlIJZM73+L3mEU4B1N6iW9lRmZxsnW5TOlSS5kGI/KcGXcxbw3mGYwgoluqCaJcJK2yas+fPMJEzYoYrTi9C4UWJSiCh+Gw=
-  region: us-east-2
-  app: Power Rankings
-  env: PowerRankings-env
-  bucket_name: aws-codedeploy-us-east-2
-  on:
-    branch: aws-deploy
 notifications:
   email: false
   slack:
@@ -29,3 +18,14 @@ notifications:
     - "%{commit_message}"
     on_success: always
     on_failure: always
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: AKIAJ45XXKRU5P4ZIGCQ
+  secret_access_key:
+    secure: hwbiUSwPJD60GmsO+/3WpvYoopbiTaKuqWKOKUnDC7htC6ImdgQVg5dSBE1gNLrZ0LfOZAOO2ySkkutbFQjh6MsLv+zTrztfIpG2Jnj/X03Ez9XK7KJj8Nt4VQihxdWpA85BWZ0g4KsuuX4qWoMlIswbptWJOQNdwZztcbdHdO/ECPlbSn4ET/GMoGCOgovMVnzgxZ5KAuYs5jhGBs5fSQqIxajKaWrhwjy1fevI7F7si/H7mlfgWox8IBN5z81l29DdJAatykQrNjSHGEqUy737CH352lSjRqn6/3R2kMS3lNoiY1iBkXz0byim0pGUxp9Ol1CJcB/ZRUPg/nl4CKE1CBu3stijJKblbnkgicU9DTwYLSIcKKUR+fqUK2Xorp2IRyzrbQkWe7TxH5g5sZBOta/slbYyUdfcvSUpG3PWHXpubz6zOsh66CdpL+tQhszaXoKlGTVIfSRsIXcvDgHiNAxpsNvTXIpO2LXOH9OwWnCW0Hp+91vOlC+iYOU0xF2xzSgCgew7GUzQMxIbbSDQa6BDtmYScaKyHv/z2ohEK5tF5BXuyvVyoJPJFFxyXWPBPtXSpShB/uP4BptbjTc3UHpTFVISjnAble8quhFQytCAPoNxNJaFMnevBXt/0vvrDHl4wgVDa6Ww43UFTaM9JRZDE4S23sej+953K2w=
+  region: us-east-2
+  app: Power Rankings
+  env: PowerRankings-env
+  on:
+    repo: jameson693/ff-power-rankings
+    branch: aws-deploy
