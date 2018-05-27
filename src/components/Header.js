@@ -1,17 +1,24 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
-import HeaderMenu from 'components/HeaderMenu';
+import NavMenu from 'components/NavMenu';
+import { withStyles } from '@material-ui/core/styles';
 
-export default () => (
+const styles = {
+    title: {
+        'padding-left': '2em'
+    }
+};
+
+export default withStyles(styles)(({ classes }) => (
     <header>
         <AppBar position="static">
             <Toolbar>
-                <HeaderMenu />
-                <Typography variant="title" color="inherit">
+                <NavMenu />
+                <Typography variant="title" color="inherit" className={classes.title}>
                     JOHN MADDEN!!!!
                 </Typography>
             </Toolbar>
         </AppBar>
     </header>
-);
+));
 
