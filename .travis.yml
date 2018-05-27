@@ -1,30 +1,31 @@
 language: node_js
-node_js: "8"
+node_js: '8'
 script: yarn pipeline
 cache:
-    directories:
-        - "node_modules"
+  directories:
+  - node_modules
 dist: trusty
 deploy:
   provider: elasticbeanstalk
-  access_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key: $AWS_SECRET
-  region: "us-east-2"
-  app: "Power Rankings"
-  env: "PowerRankings-env"
-  bucket_name: "aws-codedeploy-us-east-2"
+  access_key_id: AKIAJ45XXKRU5P4ZIGCQ
+  secret_access_key:
+    secure: INYgiaZt+utP63ah67M4mHuQBPmqPln2i6g/TTuJvA7wB1JJ0NJQYaiJC1mD1mBvBLNVs2cINABTXwqBgKAGpbCtLgczBynYySyqYoO2fZpTWv0YFPQduoIvnloNsd2qQjnDwvE7hpDaXZpyOV73iUW4I7QJufRkMtbcoCG3GQlip3niZ4u3JFhaeh8WXeQq32W239SHi/M/gU/mVzGOd68Bz4wrbcTLIaflpHi5Gf96rwQWvyhem9cQFvSpigHg/HObJ/OKmnZoNWDG2yVJLpaLff4m+ySD8Dqu8gLpZh1nuD4qHB5v7cRCf8F13Zq5RhlG6oTG71aLcO2H7BcgYcJzD5SNBdt6jFOCrxmkYfrFPOtaZBtrKoZn+MjPp8UwjkUSYtZVUzw3tpSYEVSDxlq3NRFhB/AVdmLFvICJe4nL84EVpoXuToAbCsvNnpFOuUqBlU9I6CaQAq7+1ggU+29Ub7j03JwCf2k5tgzuZ2OJxJwCoXtKtCyZQxZdbubJGvQmkGcrJk4PdWpvl8pXE8d0J1YsIKPufIr+ouTLo2c0R41/Qe5Kg+/sb+vW+180gv0o3pj1szJTmlIJZM73+L3mEU4B1N6iW9lRmZxsnW5TOlSS5kGI/KcGXcxbw3mGYwgoluqCaJcJK2yas+fPMJEzYoYrTi9C4UWJSiCh+Gw=
+  region: us-east-2
+  app: Power Rankings
+  env: PowerRankings-env
+  bucket_name: aws-codedeploy-us-east-2
   on:
-    branch: "aws-deploy"
+    branch: aws-deploy
 notifications:
   email: false
   slack:
     rooms:
-      - dover-boys:HekMr2x7RnLbKn5pCAKmqnLR
+    - dover-boys:HekMr2x7RnLbKn5pCAKmqnLR
     template:
-      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>)"
-      - "Repo: %{repository} - Branch: %{branch}"
-      - "Build Status: %{result} in %{duration}"
-      - "%{author}"
-      - "%{commit_message}"
-    on_success: always # default: always
-    on_failure: always # default: always
+    - Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>)
+    - 'Repo: %{repository} - Branch: %{branch}'
+    - 'Build Status: %{result} in %{duration}'
+    - "%{author}"
+    - "%{commit_message}"
+    on_success: always
+    on_failure: always
