@@ -5,6 +5,14 @@ cache:
     directories:
         - "node_modules"
 dist: trusty
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET
+  region: "us-east-2"
+  app: "Power Rankings"
+  env: "PowerRankings-env"
+  bucket_name: "aws-codedeploy-us-east-2"
 notifications:
   email: false
   slack:
