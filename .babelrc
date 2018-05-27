@@ -4,6 +4,7 @@
         ["module-resolver", {
             "root": ["./config", "./src"],
             "extensions": [".js", ".json"]
-        }]
+        }],
+        "transform-class-properties"
     ]
 }

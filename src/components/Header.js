@@ -1,19 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import NavMenu from 'components/NavMenu';
+import { withStyles } from '@material-ui/core/styles';
 
-export default () => (
+const styles = {
+    title: {
+        'padding-left': '2em'
+    }
+};
+
+export default withStyles(styles)(({ classes }) => (
     <header>
-        <nav>
-            <ul>
-                <li><Link to="/" href="/">Home</Link></li>
-                <li><Link to="/gameform" href="/gameform">Input Game</Link></li>
-                <li><Link to="/ScoreInputForm" href="/ScoreInputForm">Input Scores</Link></li>
-                <li><Link to="/RosPowerRankForm" href="/RosPowerRankForm">Input Power Rankings</Link></li>
-            </ul>
-            <ul>
-                <li><Link to="/GoogleChartsOutput" href="/GoogleChartsOutput">Power Rankings Chart</Link></li>
-            </ul>
-        </nav>
+        <AppBar position="static">
+            <Toolbar>
+                <NavMenu />
+                <Typography variant="title" color="inherit" className={classes.title}>
+                    JOHN MADDEN!!!!
+                </Typography>
+            </Toolbar>
+        </AppBar>
     </header>
-);
+));
 
