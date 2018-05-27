@@ -26,6 +26,7 @@ deploy:
   region: us-east-2
   app: Power Rankings
   env: PowerRankings-env
+  bucket_name: aws-codedeploy-us-east-2
   on:
     repo: jameson693/ff-power-rankings
     branch: aws-deploy
