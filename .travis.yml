@@ -13,6 +13,8 @@ deploy:
   app: "Power Rankings"
   env: "PowerRankings-env"
   bucket_name: "aws-codedeploy-us-east-2"
+  on:
+    branch: "aws-deploy"
 notifications:
   email: false
   slack:
