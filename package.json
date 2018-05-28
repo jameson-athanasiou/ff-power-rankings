@@ -1,18 +1,18 @@
 {
     "name": "ff-power-rankings",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "",
     "author": "",
     "engines": {
         "node": ">=8.7.0"
     },
     "scripts": {
-        "start": "yarn server",
-        "start-debug": "yarn server-debug",
+        "start": "npm run server",
+        "start-debug": "npm run server-debug",
         "server": "nodemon --watch server server/server.js",
         "server-debug": "nodemon --inspect --watch server server/server.js",
         "lint": "./node_modules/.bin/eslint server/**/*.js src/**/*.js",
-        "pipeline": "yarn lint && yarn webpack",
+        "pipeline": "npm run lint && npm run webpack",
         "test": "jest --config ./jest.config.js --coverage",
         "test-debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
         "test-watch": "jest --config ./jest.config.js --watch",

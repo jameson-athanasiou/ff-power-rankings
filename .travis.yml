@@ -1,6 +1,6 @@
 language: node_js
 node_js: '8'
-script: yarn pipeline
+script: npm run pipeline
 cache:
   directories:
   - node_modules
@@ -31,4 +31,4 @@ deploy:
   bucket_name: elasticbeanstalk-us-east-2-092690126976
   on:
     repo: jameson693/ff-power-rankings
-    branch: aws-deploy
+    branch: maseter
