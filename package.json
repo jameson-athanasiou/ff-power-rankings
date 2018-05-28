@@ -24,7 +24,6 @@
         "babel-plugin-module-resolver": "^3.1.0",
         "body-parser": "^1.17.2",
         "chalk": "^2.0.1",
-        "espn-fantasy-football-data": "https://github.com/jameson693/espn-fantasy-football-data",
         "express": "^4.15.3",
         "lodash": "^4.17.5",
         "prop-types": "^15.6.1",
