@@ -1,5 +1,5 @@
 // const espnData = require('espn-fantasy-football-data');
-const dataAccessor = require('./dataAccessor');
+// const dataAccessor = require('./dataAccessor');
 const { LEAGUE } = require('./constants');
 const request = require('request');
 //
@@ -119,7 +119,7 @@ const getDataFromApi = async () => {
 };
 
 module.exports = {
-    getDataFromApi,
-    getEspnData,
-    getRankings
+    getDataFromApi
+    // getEspnData,
+    // getRankings
 };
