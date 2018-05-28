@@ -1,44 +1,44 @@
-const espnData = require('espn-fantasy-football-data');
-const dataAccessor = require('./dataAccessor');
+// const espnData = require('espn-fantasy-football-data');
+// const dataAccessor = require('./dataAccessor');
 const { LEAGUE } = require('./constants');
 const request = require('request');
-
-const getRankings = async (week, position) => {
-    const data = await espnData.getPlayerRankings(week, position);
-    return data;
-};
-
-const getEspnData = async () => new Promise(async (resolve, reject) => {
-    const standings = await espnData.getStandings();
-    const scoreboard = await espnData.getScoreBoard();
-    const stats = await espnData.getStats();
-
-    const players = {};
-    const playerPromises = [];
-
-    for (let i = 1; i <= 12; i++) {
-        const promise = espnData.getPlayers(i);
-        playerPromises.push(promise);
-        promise.then((data) => {
-            players[`week${i}`] = data;
-        });
-    }
-
-    Promise.all(playerPromises).then(() => {
-        const data = {
-            standings: standings.standings,
-            scoreboard,
-            stats: stats.stats,
-            players
-        };
-
-        dataAccessor.saveDataToFile(data, {
-            type: 'leagueData'
-        });
-
-        resolve(data);
-    }, reject);
-});
+//
+// const getRankings = async (week, position) => {
+//     const data = await espnData.getPlayerRankings(week, position);
+//     return data;
+// };
+//
+// const getEspnData = async () => new Promise(async (resolve, reject) => {
+//     const standings = await espnData.getStandings();
+//     const scoreboard = await espnData.getScoreBoard();
+//     const stats = await espnData.getStats();
+//
+//     const players = {};
+//     const playerPromises = [];
+//
+//     for (let i = 1; i <= 12; i++) {
+//         const promise = espnData.getPlayers(i);
+//         playerPromises.push(promise);
+//         promise.then((data) => {
+//             players[`week${i}`] = data;
+//         });
+//     }
+//
+//     Promise.all(playerPromises).then(() => {
+//         const data = {
+//             standings: standings.standings,
+//             scoreboard,
+//             stats: stats.stats,
+//             players
+//         };
+//
+//         dataAccessor.saveDataToFile(data, {
+//             type: 'leagueData'
+//         });
+//
+//         resolve(data);
+//     }, reject);
+// });
 
 const getLeagueSettings = () => new Promise((resolve, reject) => {
     const url = `https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${LEAGUE.ID}&seasonId=2017`;
@@ -119,7 +119,7 @@ const getDataFromApi = async () => {
 };
 
 module.exports = {
-    getDataFromApi,
-    getEspnData,
-    getRankings
+    getDataFromApi
+    // getEspnData,
+    // getRankings
 };

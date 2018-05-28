@@ -1,18 +1,18 @@
 {
     "name": "ff-power-rankings",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "",
     "author": "",
     "engines": {
         "node": ">=8.7.0"
     },
     "scripts": {
-        "start": "yarn server",
-        "start-debug": "yarn server-debug",
+        "start": "npm run server",
+        "start-debug": "npm run server-debug",
         "server": "nodemon --watch server server/server.js",
         "server-debug": "nodemon --inspect --watch server server/server.js",
         "lint": "./node_modules/.bin/eslint server/**/*.js src/**/*.js",
-        "pipeline": "yarn lint && yarn webpack && yarn test",
+        "pipeline": "npm run lint && npm run webpack",
         "test": "jest --config ./jest.config.js --coverage",
         "test-debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
         "test-watch": "jest --config ./jest.config.js --watch",
@@ -24,7 +24,6 @@
         "babel-plugin-module-resolver": "^3.1.0",
         "body-parser": "^1.17.2",
         "chalk": "^2.0.1",
-        "espn-fantasy-football-data": "https://github.com/jameson693/espn-fantasy-football-data",
         "express": "^4.15.3",
         "lodash": "^4.17.5",
         "prop-types": "^15.6.1",

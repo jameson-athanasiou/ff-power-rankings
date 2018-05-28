@@ -5,7 +5,7 @@ const espnAccessor = require('./espnAccessor');
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
-const espnData = require('espn-fantasy-football-data');
+// const espnData = require('espn-fantasy-football-data');
 const dataAccessor = require('./dataAccessor');
 const analyze = require('./analyze');
 const DataTable = require('./DataTable');
@@ -42,37 +42,37 @@ app.all('*', (req, res, next) => {
 app.use('/', express.static(path.resolve('dist/index.html')));
 
 app.post('/powerRankings', powerRankingsServer.postPowerRankings);
-
-app.get('/standings', async (req, res) => {
-    const status = 200;
-    const data = await espnData.getStandings();
-    if (data) {
-        res.status(status).send(data);
-    } else {
-        res.status(status).send({});
-    }
-});
-
-app.get('/scoreboard', async (req, res) => {
-    const status = 200;
-    const data = await espnData.getScoreBoard();
-    if (data) {
-        res.status(status).send(data);
-    } else {
-        res.status(status).send({});
-    }
-});
-
-app.get('/stats', async (req, res) => {
-    let status = 200;
-    const data = await espnData.getStats();
-    if (data) {
-        res.status(status).send(data);
-    } else {
-        status = 500;
-        res.status(status).send({});
-    }
-});
+//
+// app.get('/standings', async (req, res) => {
+//     const status = 200;
+//     const data = await espnData.getStandings();
+//     if (data) {
+//         res.status(status).send(data);
+//     } else {
+//         res.status(status).send({});
+//     }
+// });
+//
+// app.get('/scoreboard', async (req, res) => {
+//     const status = 200;
+//     const data = await espnData.getScoreBoard();
+//     if (data) {
+//         res.status(status).send(data);
+//     } else {
+//         res.status(status).send({});
+//     }
+// });
+//
+// app.get('/stats', async (req, res) => {
+//     let status = 200;
+//     const data = await espnData.getStats();
+//     if (data) {
+//         res.status(status).send(data);
+//     } else {
+//         status = 500;
+//         res.status(status).send({});
+//     }
+// });
 
 app.get('/espnData', async (req, res) => {
     let status = 200;
