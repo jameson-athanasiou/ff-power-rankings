@@ -18,6 +18,8 @@ notifications:
     - "%{commit_message}"
     on_success: always
     on_failure: always
+services:
+    - docker
 deploy:
   provider: elasticbeanstalk
   access_key_id: AKIAJ45XXKRU5P4ZIGCQ
