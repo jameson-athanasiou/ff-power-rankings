@@ -27,7 +27,7 @@ deploy:
     secure: hwbiUSwPJD60GmsO+/3WpvYoopbiTaKuqWKOKUnDC7htC6ImdgQVg5dSBE1gNLrZ0LfOZAOO2ySkkutbFQjh6MsLv+zTrztfIpG2Jnj/X03Ez9XK7KJj8Nt4VQihxdWpA85BWZ0g4KsuuX4qWoMlIswbptWJOQNdwZztcbdHdO/ECPlbSn4ET/GMoGCOgovMVnzgxZ5KAuYs5jhGBs5fSQqIxajKaWrhwjy1fevI7F7si/H7mlfgWox8IBN5z81l29DdJAatykQrNjSHGEqUy737CH352lSjRqn6/3R2kMS3lNoiY1iBkXz0byim0pGUxp9Ol1CJcB/ZRUPg/nl4CKE1CBu3stijJKblbnkgicU9DTwYLSIcKKUR+fqUK2Xorp2IRyzrbQkWe7TxH5g5sZBOta/slbYyUdfcvSUpG3PWHXpubz6zOsh66CdpL+tQhszaXoKlGTVIfSRsIXcvDgHiNAxpsNvTXIpO2LXOH9OwWnCW0Hp+91vOlC+iYOU0xF2xzSgCgew7GUzQMxIbbSDQa6BDtmYScaKyHv/z2ohEK5tF5BXuyvVyoJPJFFxyXWPBPtXSpShB/uP4BptbjTc3UHpTFVISjnAble8quhFQytCAPoNxNJaFMnevBXt/0vvrDHl4wgVDa6Ww43UFTaM9JRZDE4S23sej+953K2w=
   region: us-east-2
   app: Power Rankings
-  env: PowerRankings-env
+  env: PowerRankings-dev-docker
   bucket_name: elasticbeanstalk-us-east-2-092690126976
   on:
     repo: jameson693/ff-power-rankings
