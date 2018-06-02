@@ -31,4 +31,4 @@ deploy:
   bucket_name: elasticbeanstalk-us-east-2-092690126976
   on:
     repo: jameson693/ff-power-rankings
-    branch: maseter
+    branch: master

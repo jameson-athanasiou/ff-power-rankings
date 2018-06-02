@@ -37,6 +37,7 @@ module.exports = {
         }],
         "linebreak-style": ["off"],
         "max-len": ["error", 200],
+        "no-console": ["off"],
         "no-plusplus": ["off"],
         "no-unused-vars": "error",
         "react/forbid-prop-types": ["off"],

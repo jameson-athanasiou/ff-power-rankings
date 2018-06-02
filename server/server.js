@@ -142,5 +142,5 @@ app.get('/dataFromFile', async (req, res) => {
 });
 
 http.listen(port, () => {
-    console.log(`Server listening on port ${port}`); // eslint-disable-line no-console
+    console.log(`Server listening on port ${port}`);
 });
