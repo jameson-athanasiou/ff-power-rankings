@@ -1,11 +1,32 @@
 import React from 'react';
-import { Avatar, ExpansionPanel, ExpansionPanelSummary, LinearProgress, Typography, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@material-ui/core';
+import {
+    Avatar,
+    Card,
+    CardContent,
+    CardHeader,
+    CardMedia,
+    Dialog,
+    ExpansionPanel,
+    ExpansionPanelSummary,
+    Hidden,
+    LinearProgress,
+    Typography,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
+    Paper
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PropTypes from 'prop-types';
-import { merge } from 'lodash';
 
 const styles = {
+    teamImage: {
+        height: 0,
+        paddingTop: '100%'
+    },
     progress: {
         'padding-top': '2em',
         'padding-bottom': '2em'
@@ -20,32 +41,34 @@ const styles = {
 
 class Standings extends React.Component {
     state = {
-        teamData: [],
-        loading: true
+        standings: [],
+        loading: true,
+        dialogOpen: false
+    };
+
+    onClick = (team) => {
+        console.log(team);
+        this.setState({
+            dialogOpen: true,
+            dialogTeam: team
+        });
+    };
+
+    onDialogClose = () => {
+        this.setState({
+            dialogOpen: false
+        });
     };
 
     componentDidMount() {
-        const getStandings = new Promise((resolve, reject) => {
-            fetch('/standings').then(data => data.json()).then(({ standings }) => {
-                resolve(standings);
-            }, reject);
-        });
-
-        const getStats = new Promise((resolve, reject) => {
-            fetch('/stats').then(data => data.json()).then(({ stats }) => {
-                resolve(stats);
-            }, reject);
-        });
-
-        Promise.all([getStandings, getStats]).then((values) => {
-            const standings = values[0];
-            const stats = values[1];
-            const teamData = standings.map((team, index) => merge(team, stats[index]));
-
+        fetch('/espnData').then(result => result.json()).then(({ standings }) => {
+            const sortedStandings = standings.sort((a, b) => a.overallStanding - b.overallStanding);
             this.setState({
-                teamData,
+                standings: sortedStandings,
                 loading: false
             });
+        }).catch((err) => {
+            console.error(err);
         });
     }
 
@@ -62,38 +85,44 @@ class Standings extends React.Component {
     }
 
     buildTable() {
-        const table = (
+        return (
             <Paper>
                 <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Rank</TableCell>
                             <TableCell>Team</TableCell>
+                            <Hidden xsDown>
+                                <TableCell>Owner</TableCell>
+                            </Hidden>
                             <TableCell>Wins</TableCell>
                             <TableCell>Losses</TableCell>
-                            <TableCell>Games Behind</TableCell>
-                            <TableCell>Points Scored</TableCell>
-                            <TableCell>Points Allowed</TableCell>
+                            <Hidden xsDown>
+                                <TableCell>Points Scored</TableCell>
+                                <TableCell>Points Allowed</TableCell>
+                            </Hidden>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.teamData.map((team, index) => (
-                            <TableRow key={index + 1} >
+                        {this.state.standings.map((team, index) => (
+                            <TableRow key={index + 1} onClick={() => this.onClick(team)}>
                                 <TableCell>{index + 1 }</TableCell>
-                                <TableCell>{team.team}</TableCell>
-                                <TableCell>{team.wins}</TableCell>
-                                <TableCell>{team.losses}</TableCell>
-                                <TableCell>{team.gamesBehind}</TableCell>
-                                <TableCell>{team.pointsScored}</TableCell>
-                                <TableCell>{team.pointsAgainst}</TableCell>
+                                <TableCell>{`${team.teamLocation} ${team.teamNickname}`}</TableCell>
+                                <Hidden xsDown>
+                                    <TableCell>{`${team.owners[0].firstName} ${team.owners[0].lastName}`}</TableCell>
+                                </Hidden>
+                                <TableCell>{team.record.overallWins}</TableCell>
+                                <TableCell>{team.record.overallLosses}</TableCell>
+                                <Hidden xsDown>
+                                    <TableCell>{team.record.pointsFor}</TableCell>
+                                    <TableCell>{team.record.pointsAgainst}</TableCell>
+                                </Hidden>
                             </TableRow>
                         ))};
                     </TableBody>
                 </Table>
             </Paper>
         );
-
-        return table;
     }
 
     getLoadingContent = () => (
@@ -104,8 +133,49 @@ class Standings extends React.Component {
         </div>
     );
 
+    getDialogContent = () => {
+        const { classes } = this.props;
+        const currentTeam = this.state.dialogTeam;
+        let dialogContent = <div />;
+        let owner;
+
+        if (currentTeam) {
+            owner = `${currentTeam.owners[0].firstName} ${currentTeam.owners[0].lastName}`;
+            dialogContent = (
+                <Dialog
+                    open={this.state.dialogOpen}
+                    onClose={this.onDialogClose}
+                >
+                    <Card>
+                        <CardHeader
+                            avatar={
+                                <Avatar>{currentTeam.overallStanding}</Avatar>
+                            }
+                            title={`${currentTeam.teamLocation} ${currentTeam.teamNickname}`}
+                            subheader={owner}
+                        />
+                        <CardMedia
+                            className={classes.teamImage}
+                            image={currentTeam.logoUrl}
+                        />
+                        <CardContent>
+                            This is the content
+                        </CardContent>
+                    </Card>
+                </Dialog>
+            );
+        }
+
+        return dialogContent;
+    };
+
     render() {
-        return this.state.loading ? this.getLoadingContent() : this.buildTable();
+        return (
+            <div>
+                {this.state.loading ? this.getLoadingContent() : this.buildTable()}
+                {this.getDialogContent()}
+            </div>
+        );
     }
 }
 
