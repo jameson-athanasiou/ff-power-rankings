@@ -23,6 +23,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PropTypes from 'prop-types';
 
 const styles = {
+    table: {
+        overflowX: 'auto'
+    },
     teamImage: {
         height: 0,
         paddingTop: '100%'
@@ -86,7 +89,7 @@ class Standings extends React.Component {
 
     buildTable() {
         return (
-            <Paper>
+            <Paper className={this.props.classes.table}>
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -105,7 +108,7 @@ class Standings extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.state.standings.map((team, index) => (
-                            <TableRow key={index + 1} onClick={() => this.onClick(team)}>
+                            <TableRow key={index + 1} onClick={() => this.onClick(team)} hover>
                                 <TableCell>{index + 1 }</TableCell>
                                 <TableCell>{`${team.teamLocation} ${team.teamNickname}`}</TableCell>
                                 <Hidden xsDown>
