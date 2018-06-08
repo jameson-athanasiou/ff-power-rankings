@@ -141,6 +141,13 @@ app.get('/dataFromFile', async (req, res) => {
     });
 });
 
+// app.get('/roster', (req, res) => {
+//     const team = req.query.team;
+//     const week = requ.query.week;
+// });
+
+app.use('*', express.static(path.resolve('dist/index.html')));
+
 http.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
