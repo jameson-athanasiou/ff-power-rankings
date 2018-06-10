@@ -38,7 +38,7 @@ export default class Main extends React.Component {
     }
 
     RosterStrengthFormWithProps = props => (
-        <RosterStrengthForm teams={this.state.teams} {...props} />
+        <RosterStrengthForm teams={this.state.teams ? Object.values(this.state.teams) : []} {...props} />
     );
 
     render() {

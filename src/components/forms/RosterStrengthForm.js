@@ -1,5 +1,15 @@
 import React from 'react';
-import { CircularProgress, List, ListItem, ListItemText, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import {
+    CircularProgress,
+    List,
+    ListItem,
+    ListItemText,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Paper,
+    Select
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
@@ -26,6 +36,7 @@ class RosterStrengthForm extends React.Component {
     state = {
         year: '2017',
         week: '1',
+        selectedTeam: 'Redbone But Its Dez',
         roster: [],
         rosterLoading: true
     };
@@ -44,8 +55,19 @@ class RosterStrengthForm extends React.Component {
     }
 
     onSelectChange = (event) => {
+        console.log(event.target);
         this.setState({
             [event.target.name]: event.target.value
+        });
+    };
+
+    createTeamSelect = () => {
+        const { teams = [] } = this.props;
+        return teams.map(({ teamLocation, teamNickname }, index) => {
+            const teamName = `${teamLocation} ${teamNickname}`;
+            return (
+                <MenuItem value={teamName} key={index}>{teamName}</MenuItem>
+            );
         });
     };
 
@@ -63,20 +85,20 @@ class RosterStrengthForm extends React.Component {
         const { classes } = this.props;
 
         return (
-            <List>
-                {roster.filter(player => !!player).map((player, index) => (
-                    <ListItem className={classes.listItem} key={index} >
-                        <ListItemText primary={`${player.firstName} ${player.lastName}`} />
-                    </ListItem>
-                ))}
-            </List>
+            <Paper>
+                <List>
+                    {roster.filter(player => !!player).map((player, index) => (
+                        <ListItem className={classes.listItem} key={index} >
+                            <ListItemText primary={`${player.firstName} ${player.lastName}`} />
+                        </ListItem>
+                    ))}
+                </List>
+            </Paper>
         );
     }
 
     render() {
         const { classes } = this.props;
-
-        console.log(this.props);
 
         return (
             <div>
@@ -106,6 +128,18 @@ class RosterStrengthForm extends React.Component {
                         >
                             {this.createWeekSelect()}
                         </Select>
+                        <InputLabel htmlFor="team-select" className={classes.label}>Team</InputLabel>
+                        <Select
+                            value={this.state.selectedTeam || 'N/A'}
+                            inputProps={{
+                                name: 'selectedTeam',
+                                id: 'team-select'
+                            }}
+                            onChange={this.onSelectChange}
+                            className={classes.select}
+                        >
+                            {this.createTeamSelect()}
+                        </Select>
                     </FormControl>
                 </form>
                 {this.state.rosterLoading ?
@@ -118,7 +152,8 @@ class RosterStrengthForm extends React.Component {
 }
 
 RosterStrengthForm.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    teams: PropTypes.array.isRequired
 };
 
 export default withStyles(styles)(RosterStrengthForm);
