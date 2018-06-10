@@ -12,6 +12,10 @@ const styles = {
         position: 'relative',
         'margin-right': '10'
     },
+    listItem: {
+        'padding-top': '0',
+        'padding-bottom': '0'
+    },
     select: {
         position: 'relative',
         'margin-right': '20'
@@ -56,13 +60,12 @@ class RosterStrengthForm extends React.Component {
 
     buildRosterContent() {
         const { roster } = this.state;
-        console.log(this.state);
-        console.log(roster);
+        const { classes } = this.props;
 
         return (
             <List>
-                {roster.map(player => (
-                    <ListItem>
+                {roster.filter(player => !!player).map((player, index) => (
+                    <ListItem className={classes.listItem} key={index} >
                         <ListItemText primary={`${player.firstName} ${player.lastName}`} />
                     </ListItem>
                 ))}
@@ -72,6 +75,8 @@ class RosterStrengthForm extends React.Component {
 
     render() {
         const { classes } = this.props;
+
+        console.log(this.props);
 
         return (
             <div>

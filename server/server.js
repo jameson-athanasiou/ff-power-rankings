@@ -143,6 +143,25 @@ app.get('/dataFromFile', async (req, res) => {
     });
 });
 
+app.get('/leagueSettings', async (req, res) => {
+    const { season } = req.query;
+    if (season) {
+        espnAccessor.getLeagueSettings(season).then((data) => {
+            if (data) {
+                res.status(200).send(data);
+            } else {
+                res.status(500).send({});
+            }
+        });
+    } else {
+        res.status(400).send({
+            error: {
+                message: 'Must provide a season'
+            }
+        });
+    }
+});
+
 app.get('/roster', (req, res) => {
     const { team, week } = req.query;
     if (team && week) {

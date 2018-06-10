@@ -10,7 +10,15 @@ import Standings from 'components/output/Standings';
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            teams: []
+        };
+
+        fetch('/leagueSettings?season=2017').then(data => data.json()).then(({ leaguesettings }) => {
+            this.setState({
+                teams: leaguesettings.teams
+            });
+        });
     }
 
     static getEspnData() {
@@ -29,6 +37,10 @@ export default class Main extends React.Component {
         fetch('/tables');
     }
 
+    RosterStrengthFormWithProps = props => (
+        <RosterStrengthForm teams={this.state.teams} {...props} />
+    );
+
     render() {
         return (
             <div>
@@ -36,7 +48,7 @@ export default class Main extends React.Component {
                     <Route exact path="/" component={Home} />
                     <Route path="/RosPowerRankForm" component={RosPowerRankForm} />
                     <Route path="/GoogleChartsOutput" component={GoogleChartsOutput} />
-                    <Route path="/RosterStrengthForm" component={RosterStrengthForm} />
+                    <Route path="/RosterStrengthForm" component={this.RosterStrengthFormWithProps} />
                     <Route path="/Standings" component={Standings} />
                 </Switch>
 

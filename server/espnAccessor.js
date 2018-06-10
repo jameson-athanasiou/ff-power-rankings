@@ -40,7 +40,7 @@ const request = require('request');
 //     }, reject);
 // });
 
-const getLeagueSettings = () => new Promise((resolve, reject) => {
+const getTeams = () => new Promise((resolve, reject) => {
     const url = `https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${LEAGUE.ID}&seasonId=2017`;
     request(url, (err, response, body) => {
         if (err) {
@@ -94,6 +94,22 @@ const getStandingsApi = () => new Promise((resolve, reject) => {
     });
 });
 
+const getLeagueSettings = season => new Promise((resolve, reject) => {
+    const url = `https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=211640&seasonId=${season}`;
+    request(url, (err, response, body) => {
+        if (err) {
+            reject(err);
+        } else {
+            const data = JSON.parse(body);
+            if (response.statusCode >= 400) {
+                reject(data);
+            } else {
+                resolve(data);
+            }
+        }
+    });
+});
+
 const getDataFromApi = async () => {
     // const leagueId = 211640;
     // const teamId = 1;
@@ -111,7 +127,7 @@ const getDataFromApi = async () => {
     // const workingTestUrl = http://games.espn.com/ffl/api/v2/standings?leagueId=211640&seasonId=2017
 
     const retVal = {
-        teams: await getLeagueSettings().catch(err => err),
+        teams: await getTeams().catch(err => err),
         scoreboard: await getScoreboardApi(1).catch(err => err),
         standings: await getStandingsApi().catch(err => err)
     };
@@ -119,7 +135,8 @@ const getDataFromApi = async () => {
 };
 
 module.exports = {
-    getDataFromApi
+    getDataFromApi,
+    getLeagueSettings
     // getEspnData,
     // getRankings
 };
