@@ -36,10 +36,26 @@ class RosterStrengthForm extends React.Component {
     state = {
         year: '2017',
         week: '1',
+        teamMap: {},
         selectedTeam: 'Redbone But Its Dez',
+        selectedTeamId: 1,
         roster: [],
         rosterLoading: true
     };
+
+    static getDerivedStateFromProps(props, state) {
+        debugger;
+        const { teams = [] } = props;
+        const teamMap = {};
+        teams.forEach((team) => {
+            teamMap[team.teamId] = `${team.teamLocation} ${team.teamNickname}`;
+        });
+
+        return {
+            teamMap,
+            ...state
+        };
+    }
 
     componentDidMount() {
         fetch('/roster?team=1&week=1').then(data => data.json()).then((roster) => {
@@ -56,17 +72,23 @@ class RosterStrengthForm extends React.Component {
 
     onSelectChange = (event) => {
         console.log(event.target);
-        this.setState({
+        const newState = {
             [event.target.name]: event.target.value
-        });
+        };
+debugger;
+        if (event.target.name === 'selectedTeamId') {
+            newState.selectedTeam = this.state.teamMap[event.target.value];
+        }
+
+        this.setState(newState);
     };
 
     createTeamSelect = () => {
         const { teams = [] } = this.props;
-        return teams.map(({ teamLocation, teamNickname }, index) => {
+        return teams.map(({ teamLocation, teamNickname, teamId }, index) => {
             const teamName = `${teamLocation} ${teamNickname}`;
             return (
-                <MenuItem value={teamName} key={index}>{teamName}</MenuItem>
+                <MenuItem value={teamId} key={index}>{teamName}</MenuItem>
             );
         });
     };
@@ -132,7 +154,7 @@ class RosterStrengthForm extends React.Component {
                         <Select
                             value={this.state.selectedTeam || 'N/A'}
                             inputProps={{
-                                name: 'selectedTeam',
+                                name: 'selectedTeamId',
                                 id: 'team-select'
                             }}
                             onChange={this.onSelectChange}

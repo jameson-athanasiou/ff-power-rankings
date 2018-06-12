@@ -5,6 +5,7 @@
             "root": ["./config", "./src"],
             "extensions": [".js", ".json"]
         }],
-        "transform-class-properties"
+        "transform-class-properties",
+        "transform-object-rest-spread"
     ]
 }
