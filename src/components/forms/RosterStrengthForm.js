@@ -36,29 +36,17 @@ class RosterStrengthForm extends React.Component {
     state = {
         year: '2017',
         week: '1',
-        teamMap: {},
-        selectedTeam: 'Redbone But Its Dez',
         selectedTeamId: 1,
         roster: [],
         rosterLoading: true
     };
 
-    static getDerivedStateFromProps(props, state) {
-        debugger;
-        const { teams = [] } = props;
-        const teamMap = {};
-        teams.forEach((team) => {
-            teamMap[team.teamId] = `${team.teamLocation} ${team.teamNickname}`;
-        });
-
-        return {
-            teamMap,
-            ...state
-        };
+    componentDidMount() {
+        this.getTeamRoster(1, 10);
     }
 
-    componentDidMount() {
-        fetch('/roster?team=1&week=1').then(data => data.json()).then((roster) => {
+    getTeamRoster(teamId, week) {
+        fetch(`/roster?team=${teamId}&week=${week}`).then(data => data.json()).then((roster) => {
             if (!roster.error) {
                 this.setState({
                     roster,
@@ -75,10 +63,8 @@ class RosterStrengthForm extends React.Component {
         const newState = {
             [event.target.name]: event.target.value
         };
-debugger;
-        if (event.target.name === 'selectedTeamId') {
-            newState.selectedTeam = this.state.teamMap[event.target.value];
-        }
+
+        console.log(newState);
 
         this.setState(newState);
     };
@@ -152,7 +138,7 @@ debugger;
                         </Select>
                         <InputLabel htmlFor="team-select" className={classes.label}>Team</InputLabel>
                         <Select
-                            value={this.state.selectedTeam || 'N/A'}
+                            value={this.state.selectedTeamId}
                             inputProps={{
                                 name: 'selectedTeamId',
                                 id: 'team-select'

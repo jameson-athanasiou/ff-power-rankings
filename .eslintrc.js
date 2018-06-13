@@ -21,7 +21,7 @@ module.exports = {
     "parser": "babel-eslint",
     "parserOptions": {
         "jsx": true,
-        "ecmaVersion": 7
+        "ecmaVersion": "2018"
     },
     "rules": {
         "comma-dangle": ["error", "never"],
