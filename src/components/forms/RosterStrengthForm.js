@@ -42,11 +42,7 @@ class RosterStrengthForm extends React.Component {
     };
 
     componentDidMount() {
-        this.getTeamRoster(1, 10);
-    }
-
-    getTeamRoster(teamId, week) {
-        fetch(`/roster?team=${teamId}&week=${week}`).then(data => data.json()).then((roster) => {
+        this.getTeamRoster(1, 10).then(data => data.json()).then((roster) => {
             if (!roster.error) {
                 this.setState({
                     roster,
@@ -58,15 +54,41 @@ class RosterStrengthForm extends React.Component {
         });
     }
 
+    getTeamRoster(teamId, week) {
+        return fetch(`/roster?team=${teamId}&week=${week}`);
+    }
+
+    onTeamChange = (event) => {
+        this.getTeamRoster(event.target.value, this.state.week)
+            .then(data => data.json()).then((roster) => {
+                if (!roster.error) {
+                    this.setState({
+                        roster,
+                        rosterLoading: false,
+                        [event.target.name]: event.target.value
+                    });
+                } else {
+                    console.error(roster.error);
+                }
+            });
+    };
+
     onSelectChange = (event) => {
-        console.log(event.target);
-        const newState = {
+        this.setState({
             [event.target.name]: event.target.value
-        };
-
-        console.log(newState);
-
-        this.setState(newState);
+        }, () => {
+            this.getTeamRoster(this.state.selectedTeamId, this.state.week)
+                .then(data => data.json()).then((roster) => {
+                    if (!roster.error) {
+                        this.setState({
+                            roster,
+                            rosterLoading: false
+                        });
+                    } else {
+                        console.error(roster.error);
+                    }
+                });
+        });
     };
 
     createTeamSelect = () => {
