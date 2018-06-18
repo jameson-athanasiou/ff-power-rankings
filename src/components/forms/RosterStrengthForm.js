@@ -8,7 +8,8 @@ import {
     InputLabel,
     MenuItem,
     Paper,
-    Select
+    Select,
+    TextField
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -57,21 +58,6 @@ class RosterStrengthForm extends React.Component {
     getTeamRoster(teamId, week) {
         return fetch(`/roster?team=${teamId}&week=${week}`);
     }
-
-    onTeamChange = (event) => {
-        this.getTeamRoster(event.target.value, this.state.week)
-            .then(data => data.json()).then((roster) => {
-                if (!roster.error) {
-                    this.setState({
-                        roster,
-                        rosterLoading: false,
-                        [event.target.name]: event.target.value
-                    });
-                } else {
-                    console.error(roster.error);
-                }
-            });
-    };
 
     onSelectChange = (event) => {
         this.setState({
@@ -176,6 +162,15 @@ class RosterStrengthForm extends React.Component {
                     <CircularProgress /> :
                     this.buildRosterContent()
                 }
+                <form>
+                    <TextField
+                        id="name"
+                        label="Roster Strength"
+                        value={this.stat}
+                        onChange={this.handleChange('name')}
+                        margin="normal"
+                    />
+                </form>
             </div>
         );
     }
