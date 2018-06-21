@@ -24,6 +24,7 @@ module.exports = {
         "ecmaVersion": "2018"
     },
     "rules": {
+        "class-methods-use-this": ["off"],
         "comma-dangle": ["error", "never"],
         "import/first": ["off"],
         "import/order": ["off"],

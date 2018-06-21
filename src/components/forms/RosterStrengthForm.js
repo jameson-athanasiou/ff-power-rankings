@@ -8,8 +8,7 @@ import {
     InputLabel,
     MenuItem,
     Paper,
-    Select,
-    TextField
+    Select
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -162,15 +161,6 @@ class RosterStrengthForm extends React.Component {
                     <CircularProgress /> :
                     this.buildRosterContent()
                 }
-                <form>
-                    <TextField
-                        id="name"
-                        label="Roster Strength"
-                        value={this.stat}
-                        onChange={this.handleChange('name')}
-                        margin="normal"
-                    />
-                </form>
             </div>
         );
     }
