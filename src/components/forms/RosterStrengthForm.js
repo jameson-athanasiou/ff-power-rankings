@@ -1,16 +1,19 @@
 import React from 'react';
 import {
     CircularProgress,
-    List,
-    ListItem,
-    ListItemText,
     FormControl,
     InputLabel,
     MenuItem,
     Paper,
-    Select
+    Select,
+    Table,
+    TableHead,
+    TableRow,
+    TableBody,
+    TableCell
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { POSITION_BY_SLOT_NUMBER } from 'maps/positionMaps';
 import PropTypes from 'prop-types';
 
 const styles = {
@@ -101,13 +104,22 @@ class RosterStrengthForm extends React.Component {
 
         return (
             <Paper>
-                <List>
-                    {roster.filter(player => !!player).map((player, index) => (
-                        <ListItem className={classes.listItem} key={index} >
-                            <ListItemText primary={`${player.firstName} ${player.lastName}`} />
-                        </ListItem>
-                    ))}
-                </List>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Position</TableCell>
+                            <TableCell>Player</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {roster.filter(player => !!player).map((player, index) => (
+                            <TableRow className={classes.listItem} key={index}>
+                                <TableCell>{`${POSITION_BY_SLOT_NUMBER[index]}`}</TableCell>
+                                <TableCell>{`${player.firstName} ${player.lastName}`}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </Paper>
         );
     }

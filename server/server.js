@@ -165,7 +165,7 @@ app.get('/leagueSettings', async (req, res) => {
 app.get('/roster', (req, res) => {
     const { team, week } = req.query;
     if (team && week) {
-        const url = `${API.ESPN.HOST}/rosterInfo?leagueId=${LEAGUE.ID}&seasonID=2017&teamIds=${team}&scoringPeriodId=${week}`;
+        const url = `${API.ESPN.HOST}/rosterInfo?leagueId=${LEAGUE.ID}&seasonId=2017&teamIds=${team}&scoringPeriodId=${week}`;
         console.log(url);
         request(url, (err, response, body) => {
             if (err) {
@@ -183,7 +183,6 @@ app.get('/roster', (req, res) => {
                     if (teams.length === 1) {
                         const { slots } = teams[0];
                         const roster = slots.map(slot => slot.player);
-                        console.log(roster[19]);
                         res.status(200).send(roster);
                     } else {
                         res.status(404).send({
