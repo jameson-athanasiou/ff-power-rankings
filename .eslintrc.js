@@ -21,12 +21,14 @@ module.exports = {
     "parser": "babel-eslint",
     "parserOptions": {
         "jsx": true,
-        "ecmaVersion": 7
+        "ecmaVersion": "2018"
     },
     "rules": {
+        "class-methods-use-this": ["off"],
         "comma-dangle": ["error", "never"],
         "import/first": ["off"],
         "import/order": ["off"],
+        "import/prefer-default-export": ["off"],
         "indent": ["error", 4],
         "jsx-a11y/label-has-for": [ "error", {
             "components": [ "Label" ],

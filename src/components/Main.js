@@ -2,16 +2,23 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Home from 'components/Home';
-import GameForm from 'components/forms/GameForm';
-import ScoreInputForm from 'components/forms/ScoreInputForm';
 import RosPowerRankForm from 'components/forms/RosPowerRankForm';
 import GoogleChartsOutput from 'components/output/GoogleChartsOutput';
+import RosterStrengthForm from 'components/forms/RosterStrengthForm';
 import Standings from 'components/output/Standings';
 
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            teams: []
+        };
+
+        fetch('/leagueSettings?season=2017').then(data => data.json()).then(({ leaguesettings }) => {
+            this.setState({
+                teams: leaguesettings.teams
+            });
+        });
     }
 
     static getEspnData() {
@@ -30,15 +37,18 @@ export default class Main extends React.Component {
         fetch('/tables');
     }
 
+    RosterStrengthFormWithProps = props => (
+        <RosterStrengthForm teams={this.state.teams ? Object.values(this.state.teams) : []} {...props} />
+    );
+
     render() {
         return (
-            <main>
+            <div>
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/GameForm" component={GameForm} />
-                    <Route path="/ScoreInputForm" component={ScoreInputForm} />
                     <Route path="/RosPowerRankForm" component={RosPowerRankForm} />
                     <Route path="/GoogleChartsOutput" component={GoogleChartsOutput} />
+                    <Route path="/RosterStrengthForm" component={this.RosterStrengthFormWithProps} />
                     <Route path="/Standings" component={Standings} />
                 </Switch>
 
@@ -46,7 +56,7 @@ export default class Main extends React.Component {
                 <Button variant="raised" color="primary" onClick={Main.getDataFromFile}>Get File Data</Button>
                 <Button variant="raised" color="primary" onClick={Main.runAnalysis}>Analyze!</Button>
                 <Button variant="raised" color="primary" onClick={Main.getTables}>Tables!!</Button>
-            </main>
+            </div>
         );
     }
 }

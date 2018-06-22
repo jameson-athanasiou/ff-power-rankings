@@ -37,8 +37,6 @@ class SimpleMenu extends React.Component {
                 >
                     <nav>
                         <MenuItem onClick={this.handleClose}><Link to="/" href="/">Home</Link></MenuItem>
-                        <MenuItem onClick={this.handleClose}><Link to="/gameform" href="/gameform">Input Game</Link></MenuItem>
-                        <MenuItem onClick={this.handleClose}><Link to="/ScoreInputForm" href="/ScoreInputForm">Input Scores</Link></MenuItem>
                         <MenuItem onClick={this.handleClose}><Link to="/RosPowerRankForm" href="/RosPowerRankForm">Input Power Rankings</Link></MenuItem>
                         <MenuItem onClick={this.handleClose}><Link to="/GoogleChartsOutput" href="/GoogleChartsOutput">Power Rankings Chart</Link></MenuItem>
                         <MenuItem onClick={this.handleClose}><Link to="/Standings" href="/Standings">Standings</Link></MenuItem>

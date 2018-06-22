@@ -5,6 +5,8 @@ const espnAccessor = require('./espnAccessor');
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
+const { API, LEAGUE } = require('./constants');
+const request = require('request');
 // const espnData = require('espn-fantasy-football-data');
 const dataAccessor = require('./dataAccessor');
 const analyze = require('./analyze');
@@ -140,6 +142,68 @@ app.get('/dataFromFile', async (req, res) => {
         }
     });
 });
+
+app.get('/leagueSettings', async (req, res) => {
+    const { season } = req.query;
+    if (season) {
+        espnAccessor.getLeagueSettings(season).then((data) => {
+            if (data) {
+                res.status(200).send(data);
+            } else {
+                res.status(500).send({});
+            }
+        });
+    } else {
+        res.status(400).send({
+            error: {
+                message: 'Must provide a season'
+            }
+        });
+    }
+});
+
+app.get('/roster', (req, res) => {
+    const { team, week } = req.query;
+    if (team && week) {
+        const url = `${API.ESPN.HOST}/rosterInfo?leagueId=${LEAGUE.ID}&seasonId=2017&teamIds=${team}&scoringPeriodId=${week}`;
+        console.log(url);
+        request(url, (err, response, body) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                const data = JSON.parse(body);
+                if (response.statusCode >= 400) {
+                    res.status(response.statusCode).send({
+                        error: {
+                            message: 'error requesing data'
+                        }
+                    });
+                } else {
+                    const { teams } = data.leagueRosters;
+                    if (teams.length === 1) {
+                        const { slots } = teams[0];
+                        const roster = slots.map(slot => slot.player);
+                        res.status(200).send(roster);
+                    } else {
+                        res.status(404).send({
+                            error: {
+                                message: 'Couldnt find roster'
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    } else {
+        res.status(400).send({
+            error: {
+                message: 'Missing team or week'
+            }
+        });
+    }
+});
+
+app.use('*', express.static(path.resolve('dist/index.html')));
 
 http.listen(port, () => {
     console.log(`Server listening on port ${port}`);

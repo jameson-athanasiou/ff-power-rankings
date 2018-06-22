@@ -1,8 +1,6 @@
 import { shallow } from 'enzyme';
 import Main from '../Main';
 import Home from '../Home';
-import GameForm from 'components/forms/GameForm';
-import ScoreInputForm from 'components/forms/ScoreInputForm';
 import RosPowerRankForm from 'components/forms/RosPowerRankForm';
 import GoogleChartsOutput from 'components/output/GoogleChartsOutput';
 import React from 'react';
@@ -34,22 +32,6 @@ describe('<Main />', () => {
         const routeZeroProps = routes.at(0).props();
         expect(routeZeroProps.path).toBe('/');
         expect(routeZeroProps.component).toBe(Home);
-    });
-
-    test('GameForm route is constructed correctly', () => {
-        const wrapper = shallow(<Main />);
-        const routes = wrapper.find('Route');
-        const routeZeroProps = routes.at(1).props();
-        expect(routeZeroProps.path).toBe('/GameForm');
-        expect(routeZeroProps.component).toBe(GameForm);
-    });
-
-    test('ScoreInputForm route is constructed correctly', () => {
-        const wrapper = shallow(<Main />);
-        const routes = wrapper.find('Route');
-        const routeZeroProps = routes.at(2).props();
-        expect(routeZeroProps.path).toBe('/ScoreInputForm');
-        expect(routeZeroProps.component).toBe(ScoreInputForm);
     });
 
     test('RosPowerRankForm route is constructed correctly', () => {

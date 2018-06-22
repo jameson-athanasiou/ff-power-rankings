@@ -121,7 +121,7 @@ class Standings extends React.Component {
                                     <TableCell>{team.record.pointsAgainst}</TableCell>
                                 </Hidden>
                             </TableRow>
-                        ))};
+                        ))}
                     </TableBody>
                 </Table>
             </Paper>

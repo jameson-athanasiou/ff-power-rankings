@@ -26,12 +26,11 @@ class NavMenu extends React.Component {
                 </IconButton>
                 <Drawer anchor="left" open={this.state.open} onClose={this.toggleDrawer}>
                     <nav>
-                        <MenuItem onClick={this.toggleDrawer}><Link to="/" href="/">Home</Link></MenuItem>
-                        <MenuItem onClick={this.toggleDrawer}><Link to="/gameform" href="/gameform">Input Game</Link></MenuItem>
-                        <MenuItem onClick={this.toggleDrawer}><Link to="/ScoreInputForm" href="/ScoreInputForm">Input Scores</Link></MenuItem>
-                        <MenuItem onClick={this.toggleDrawer}><Link to="/RosPowerRankForm" href="/RosPowerRankForm">Input Power Rankings</Link></MenuItem>
-                        <MenuItem onClick={this.toggleDrawer}><Link to="/GoogleChartsOutput" href="/GoogleChartsOutput">Power Rankings Chart</Link></MenuItem>
-                        <MenuItem onClick={this.toggleDrawer}><Link to="/Standings" href="/Standings">Standings</Link></MenuItem>
+                        <Link to="/" href="/"><MenuItem onClick={this.toggleDrawer}>Home</MenuItem></Link>
+                        <Link to="/RosPowerRankForm" href="/RosPowerRankForm"><MenuItem onClick={this.toggleDrawer}>Input Power Rankings</MenuItem></Link>
+                        <Link to="/GoogleChartsOutput" href="/GoogleChartsOutput"><MenuItem onClick={this.toggleDrawer}>Power Rankings Chart</MenuItem></Link>
+                        <Link to="/RosterStrengthForm" href="/RosterStrengthForm"><MenuItem onClick={this.toggleDrawer}>Input Roster Strength</MenuItem></Link>
+                        <Link to="/Standings" href="/Standings"><MenuItem onClick={this.toggleDrawer}>Standings</MenuItem></Link>
                     </nav>
                 </Drawer>
             </div>

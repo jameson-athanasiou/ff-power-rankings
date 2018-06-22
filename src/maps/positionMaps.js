@@ -1,0 +1,23 @@
+export const POSITION_BY_SLOT_NUMBER = {
+    0: 'QB',
+    1: 'RB',
+    2: 'RB',
+    3: 'WR',
+    4: 'WR',
+    5: 'TE',
+    6: 'FLEX',
+    7: 'LB',
+    8: 'DL',
+    9: 'DB',
+    10: 'DB',
+    11: 'D/ST',
+    12: 'K',
+    13: 'Bench',
+    14: 'Bench',
+    15: 'Bench',
+    16: 'Bench',
+    17: 'Bench',
+    18: 'Bench',
+    19: 'Bench',
+    20: 'IR'
+};
