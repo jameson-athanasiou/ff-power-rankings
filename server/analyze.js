@@ -128,6 +128,22 @@ const producePowerRankNumbers = (rankings) => {
     return Object.freeze(powerRank);
 };
 
+const produceWeeklyPowerRankNumbers = (rankings) => {
+    const rankingsObject = {};
+    Object.keys(rankings).forEach((weekNumber) => {
+        rankings[weekNumber].forEach((team, index) => {
+            const { owner } = team;
+            if (!rankingsObject[owner]) {
+                rankingsObject[owner] = [];
+            }
+
+            rankingsObject[owner].push(index + 1);
+        });
+    });
+
+    return rankingsObject;
+};
+
 const generatePowerRankings = data => new Promise((resolve, reject) => {
     writeTeamFile(data.stats).then(async () => {
         const rankings = await createWeekOverWeekRankings(data.scoreboard);
@@ -136,7 +152,15 @@ const generatePowerRankings = data => new Promise((resolve, reject) => {
         const arrayOfArrays = Object.keys(finalRankings).map(key => finalRankings[key]);
         const powerRankings = producePowerRankNumbers(arrayOfArrays);
 
-        resolve(powerRankings);
+        const weeklyNumbers = produceWeeklyPowerRankNumbers(arrayOfArrays[1]);
+
+        resolve({
+            rankings,
+            finalRankings,
+            arrayOfArrays,
+            powerRankings,
+            weeklyNumbers
+        });
     }, reject);
 });
 

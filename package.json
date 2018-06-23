@@ -26,6 +26,7 @@
         "chalk": "^2.0.1",
         "express": "^4.15.3",
         "lodash": "^4.17.5",
+        "node-csv": "^0.1.2",
         "prop-types": "^15.6.1",
         "react": "^16.0.0",
         "react-dom": "^16.0.0",
