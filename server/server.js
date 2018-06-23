@@ -11,6 +11,7 @@ const request = require('request');
 const dataAccessor = require('./dataAccessor');
 const analyze = require('./analyze');
 const DataTable = require('./DataTable');
+const csv = require('node-csv').createParser();
 
 const app = express();
 const http = require('http').Server(app);
@@ -88,14 +89,6 @@ app.get('/espnData', async (req, res) => {
     }
 });
 
-app.get('/calculateRosterStrength', async (req, res) => {
-    analyze.calculateRosterStrength().then((data) => {
-        res.status(200).send(data || {});
-    }, (err) => {
-        res.status(500).send(err);
-    });
-});
-
 app.get('/runAnalysis', async (req, res) => {
     dataAccessor.getDataFromFile('leagueData').then((data) => {
         if (data) {
@@ -139,6 +132,18 @@ app.get('/dataFromFile', async (req, res) => {
         } else {
             status = 500;
             res.status(status).send({});
+        }
+    });
+});
+
+app.get('/rosterStrength', async (req, res) => {
+    const { team, week } = req.query;
+
+    csv.parseFile('config/data/2017/roster-strength-2017.csv', (err, data) => {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).send(data.filter(row => row[0] !== 'Owner'));
         }
     });
 });
