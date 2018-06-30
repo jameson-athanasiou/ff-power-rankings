@@ -3,15 +3,14 @@ const powerRankingsServer = require('./powerRankingsServer');
 const express = require('express');
 const espnAccessor = require('./espnAccessor');
 const path = require('path');
-const webpack = require('webpack');
-const webpackConfig = require('../webpack.config');
 const { API, LEAGUE } = require('./constants');
 const request = require('request');
-// const espnData = require('espn-fantasy-football-data');
 const dataAccessor = require('./dataAccessor');
 const analyze = require('./analyze');
 const DataTable = require('./DataTable');
 const csv = require('node-csv').createParser();
+const Bundler = require('parcel-bundler');
+const paths = require('../config/paths');
 
 const app = express();
 const http = require('http').Server(app);
@@ -23,18 +22,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-// webpack.devtool = 'source-map';
-const compiler = webpack(webpackConfig);
-app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    reload: true,
-    stats: {
-        colors: true
-    }
-}));
-
-app.use(require('webpack-hot-middleware')(compiler));
-
 app.all('*', (req, res, next) => {
     if (req.originalUrl !== '/json' && req.originalUrl !== '/json/version') {
         console.log(`${req.method} ${req.originalUrl}`); // eslint-disable-line no-console
@@ -42,40 +29,7 @@ app.all('*', (req, res, next) => {
     next();
 });
 
-app.use('/', express.static(path.resolve('dist/index.html')));
-
 app.post('/powerRankings', powerRankingsServer.postPowerRankings);
-//
-// app.get('/standings', async (req, res) => {
-//     const status = 200;
-//     const data = await espnData.getStandings();
-//     if (data) {
-//         res.status(status).send(data);
-//     } else {
-//         res.status(status).send({});
-//     }
-// });
-//
-// app.get('/scoreboard', async (req, res) => {
-//     const status = 200;
-//     const data = await espnData.getScoreBoard();
-//     if (data) {
-//         res.status(status).send(data);
-//     } else {
-//         res.status(status).send({});
-//     }
-// });
-//
-// app.get('/stats', async (req, res) => {
-//     let status = 200;
-//     const data = await espnData.getStats();
-//     if (data) {
-//         res.status(status).send(data);
-//     } else {
-//         status = 500;
-//         res.status(status).send({});
-//     }
-// });
 
 app.get('/espnData', async (req, res) => {
     let status = 200;
@@ -137,8 +91,6 @@ app.get('/dataFromFile', async (req, res) => {
 });
 
 app.get('/rosterStrength', async (req, res) => {
-    const { team, week } = req.query;
-
     csv.parseFile('config/data/2017/roster-strength-2017.csv', (err, data) => {
         if (err) {
             res.status(400).send(err);
@@ -207,6 +159,12 @@ app.get('/roster', (req, res) => {
         });
     }
 });
+
+const parcelOptions = {
+    watch: true
+};
+const bundler = new Bundler(paths.indexHtml, parcelOptions);
+app.use(bundler.middleware());
 
 app.use('*', express.static(path.resolve('dist/index.html')));
 
