@@ -27,6 +27,7 @@ module.exports = {
         "class-methods-use-this": ["off"],
         "comma-dangle": ["error", "never"],
         "import/first": ["off"],
+        "import/no-dynamic-require": ["off"],
         "import/order": ["off"],
         "import/prefer-default-export": ["off"],
         "indent": ["error", 4],

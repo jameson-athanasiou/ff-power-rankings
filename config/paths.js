@@ -14,5 +14,6 @@ module.exports = {
     json: resolvePath('config/json'),
     serverTest: resolvePath('test/unit/server'),
     src: resolvePath('src'),
-    unitTest: resolvePath('test/unit')
+    unitTest: resolvePath('test/unit'),
+    webpackConfigFile: resolvePath('webpack.config.js')
 };
