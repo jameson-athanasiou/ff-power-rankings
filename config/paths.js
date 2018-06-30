@@ -11,6 +11,7 @@ module.exports = {
     appHome: appDirectory,
     clientTest: resolvePath('test/unit/src'),
     data: resolvePath('data'),
+    indexHtml: resolvePath('index.html'),
     json: resolvePath('config/json'),
     serverTest: resolvePath('test/unit/server'),
     src: resolvePath('src'),
