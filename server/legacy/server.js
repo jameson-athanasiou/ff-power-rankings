@@ -1,5 +1,4 @@
 const bodyParser = require('body-parser');
-const powerRankingsServer = require('./powerRankingsServer');
 const express = require('express');
 const espnAccessor = require('./espnAccessor');
 const path = require('path');
@@ -10,7 +9,7 @@ const analyze = require('./analyze');
 const DataTable = require('./DataTable');
 const csv = require('node-csv').createParser();
 const Bundler = require('parcel-bundler');
-const paths = require('../config/paths');
+const paths = require('../../config/paths');
 
 const app = express();
 const http = require('http').Server(app);
@@ -28,8 +27,6 @@ app.all('*', (req, res, next) => {
     }
     next();
 });
-
-app.post('/powerRankings', powerRankingsServer.postPowerRankings);
 
 app.get('/espnData', async (req, res) => {
     let status = 200;
