@@ -3,25 +3,12 @@ const dataAccessor = require('./legacy/dataAccessor');
 const express = require('express');
 const path = require('path');
 const paths = require('../config/paths');
-const webpack = require('webpack');
-
-const webpackConfig = require(paths.webpackConfigFile);
+const Bundler = require('parcel-bundler');
 
 const app = express();
 const http = require('http').Server(app);
 
 const port = process.env.PORT || 3000;
-
-const compiler = webpack(webpackConfig);
-app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    reload: true,
-    stats: {
-        colors: true
-    }
-}));
-
-app.use(require('webpack-hot-middleware')(compiler));
 
 app.all('*', (req, res, next) => {
     if (req.originalUrl !== '/json' && req.originalUrl !== '/json/version') {
@@ -72,7 +59,12 @@ app.get('/scoreboard', async (req, res) => {
     res.status(200).send(data);
 });
 
-app.use('/', express.static(path.resolve('dist/index.html')));
+const parcelOptions = {
+    watch: true
+};
+const bundler = new Bundler(paths.indexHtml, parcelOptions);
+app.use(bundler.middleware());
+
 app.use('*', express.static(path.resolve('dist/index.html')));
 
 http.listen(port, () => {
