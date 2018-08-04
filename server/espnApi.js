@@ -55,11 +55,9 @@ const getScoreboard = period => new Promise((resolve, reject) => {
                 reject(data);
             } else {
                 const { matchups } = data.scoreboard;
-
-
                 const dataObject = {
                     scoreboard: [...matchups],
-                    week: 1
+                    week: period
                 };
                 resolve(dataObject);
             }
@@ -67,9 +65,48 @@ const getScoreboard = period => new Promise((resolve, reject) => {
     });
 });
 
+const getStandings = () => new Promise((resolve, reject) => {
+    const url = `https://games.espn.com/ffl/api/v2/standings?leagueId=${ESPN.LEAGUE.ID}&seasonId=2017`;
+    request(url, (err, response, body) => {
+        if (err) {
+            reject(err);
+        } else {
+            const data = JSON.parse(body);
+            if (response.statusCode >= 400) {
+                reject(data);
+            } else {
+                resolve(data.teams);
+            }
+        }
+    });
+});
+
+const getTeams = () => new Promise((resolve, reject) => {
+    const url = `https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${ESPN.LEAGUE.ID}&seasonId=2017`;
+    request(url, (err, response, body) => {
+        if (err) {
+            reject(err);
+        } else {
+            const data = JSON.parse(body);
+            if (response.statusCode >= 400) {
+                reject(data);
+            } else {
+                resolve(Object.values(data.leaguesettings.teams).map(team => ({
+                    logoUrl: team.logoUrl,
+                    abbreviation: team.teamAbbrev,
+                    teamName: `${team.teamLocation} ${team.teamNickname}`,
+                    teamId: team.teamId,
+                    owner: `${team.owners[0].firstName} ${team.owners[0].lastName}`
+                })));
+            }
+        }
+    });
+});
 
 module.exports = {
     getLeagueSettings,
     getRoster,
-    getScoreboard
+    getScoreboard,
+    getStandings,
+    getTeams
 };

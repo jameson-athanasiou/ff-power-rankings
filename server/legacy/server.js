@@ -129,7 +129,7 @@ app.get('/roster', (req, res) => {
                 if (response.statusCode >= 400) {
                     res.status(response.statusCode).send({
                         error: {
-                            message: 'error requesing data'
+                            message: 'error requesting data'
                         }
                     });
                 } else {

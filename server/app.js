@@ -4,6 +4,8 @@ const express = require('express');
 const path = require('path');
 const paths = require('../config/paths');
 const Bundler = require('parcel-bundler');
+const csv = require('node-csv').createParser();
+const { scoreboardTable } = require('./tableManufacturer');
 
 const app = express();
 const http = require('http').Server(app);
@@ -45,6 +47,15 @@ app.get('/roster', async (req, res) => {
     }
 });
 
+app.get('/rosterStrength', async (req, res) => {
+    csv.parseFile('config/data/2017/roster-strength-2017.csv', (err, data) => {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).send(data.filter(row => row[0] !== 'Owner'));
+        }
+    });
+});
 
 // TODO: remove this route
 app.get('/runAnalysis', async (req, res) => {
@@ -54,8 +65,25 @@ app.get('/runAnalysis', async (req, res) => {
 });
 
 // TODO: remove this route
+app.get('/dataFromFile', async (req, res) => {
+    let status = 200;
+    dataAccessor.getDataFromFile('leagueData').then((data) => {
+        if (data) {
+            res.status(status).send(data);
+        } else {
+            status = 500;
+            res.status(status).send({});
+        }
+    });
+});
+
 app.get('/scoreboard', async (req, res) => {
-    const data = await getScoreboard(1);
+    const { week } = req.query;
+    let data = {};
+    if (week) {
+        data = await getScoreboard(week);
+    }
+    scoreboardTable();
     res.status(200).send(data);
 });
 
